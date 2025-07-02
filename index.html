@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flip & Clip</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Constant Header Loaded Here -->
+  <div id="header-placeholder"></div>
+
+  <script>
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Background video section -->
+  <section class="hero">
+    <video autoplay muted loop id="bg-video">
+      <source src="bg.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="hero-text">
+      <h1>Smart, Sustainable Packaging for Tomorrow</h1>
+      <p>We combine innovation and responsibility to deliver packaging that powers your brand and protects the planet.</p>
+    </div>
+  </section>
+
+  <!-- News & Innovation -->
+  <section class="cards-section">
+    <div class="card">
+      <h4>NEWS AND EVENTS</h4>
+      <h3>Parksons-MK Printpack Announcement</h3>
+      <p>Warburg Pincus backed Parksons Packaging, a leading paper packaging company in India, today announced that…</p>
+      <a href="#">Read more</a>
+    </div>
+    <div class="card">
+      <h4>INNOVATION AND TECHNOLOGY</h4>
+      <h3>Smart Solutions for Business Success</h3>
+      <p>We provide innovative packaging solutions that help our customers’ brands advance.</p>
+      <a href="#">Read more</a>
+    </div>
+  </section>
+
+</body>
+</html>

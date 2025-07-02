@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Company Background | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --accent: #d60000;
+      --bg: #f7f9fc;
+      --text: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 60vh;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), 
+                  url('assets/company-building.png') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      line-height: 1.6;
+      margin: auto;
+    }
+
+    /* Content */
+    .content {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 30px;
+    }
+
+    .content p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .highlight-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .highlight {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      text-align: center;
+    }
+
+    .highlight i {
+      font-size: 32px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .highlight h3 {
+      font-size: 20px;
+      margin: 10px 0 6px;
+    }
+
+    .highlight p {
+      font-size: 14px;
+    }
+
+    .cta {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 60px 30px;
+      margin-top: 60px;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .cta a {
+      background: #ffffff;
+      color: var(--primary);
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 16px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .content p {
+        font-size: 16px;
+      }
+
+      .cta h2 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Load -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero" data-aos="fade-up">
+    <div>
+      <h1>A Pioneering Packaging<br>Solutions Provider</h1>
+      <p>With over 20 years of expertise, Shree Ram Packers delivers packaging that reflects quality, sustainability, and innovation.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="content" data-aos="fade-up">
+    <p>Shree Ram Packers is a leading Indian packaging company driven by innovation, sustainability, and trust. Founded with the goal to revolutionize packaging for industries across India, we have expanded to serve sectors such as FMCG, pharmaceuticals, food & beverage, and more.</p>
+
+    <p>Under the leadership of our visionary founders, we have continued to evolve with state-of-the-art manufacturing technologies, client-centric services, and a passion for eco-friendly packaging solutions. Today, Shree Ram Packers operates multiple facilities across the country and exports to international markets.</p>
+
+    <p>Our mission is simple: to empower brands with reliable, sustainable, and intelligent packaging — contributing to a cleaner planet and smarter future.</p>
+
+    <div class="highlight-boxes">
+      <div class="highlight" data-aos="zoom-in-up">
+        <i class="fas fa-box-open"></i>
+        <h3>Packaging Expertise</h3>
+        <p>Decades of industry experience powering premium packaging products.</p>
+      </div>
+      <div class="highlight" data-aos="zoom-in-up" data-aos-delay="100">
+        <i class="fas fa-leaf"></i>
+        <h3>Eco Practices</h3>
+        <p>Environment-friendly materials and processes for a better tomorrow.</p>
+      </div>
+      <div class="highlight" data-aos="zoom-in-up" data-aos-delay="200">
+        <i class="fas fa-globe-asia"></i>
+        <h3>Global Reach</h3>
+        <p>Supplying to clients across India and worldwide.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" data-aos="fade-up">
+    <h2>Want to partner with us?</h2>
+    <p>We're just one click away. Let's build sustainable packaging together.</p>
+    <a href="contact.html">Get In Touch</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+</body>
+</html>

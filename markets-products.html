@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Markets & Products | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    .hero {
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('assets/markets-banner.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 100px 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin: 0;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 10px auto 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 30px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 30px;
+      color: #0d47a1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #1b5e20;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li::before {
+      content: '✔';
+      color: #2e7d32;
+      margin-right: 8px;
+    }
+
+    .card ul li {
+      padding: 5px 0;
+    }
+
+    .catalog-section {
+      background-color: #f2f6fc;
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .catalog-section h2 {
+      font-size: 32px;
+      color: #0d47a1;
+      margin-bottom: 10px;
+    }
+
+    .catalog-section p {
+      font-size: 16px;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .catalog-section a {
+      display: inline-block;
+      background-color: #d60000;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .catalog-section a i {
+      margin-right: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0d47a1;
+      color: white;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Markets & Products</h1>
+    <p>Serving diverse industries with premium packaging solutions.</p>
+  </section>
+
+  <!-- Markets Section -->
+  <section class="container">
+    <h2 class="section-title">Our Markets</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Consumer Goods</h3>
+        <ul>
+          <li>Retail & Fashion Packaging</li>
+          <li>Personal Care Packaging</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Healthcare</h3>
+        <ul>
+          <li>Medical Product Cartons</li>
+          <li>Protective Packaging</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Gable Top Packaging</h3>
+        <ul>
+          <li>Dairy Cartons</li>
+          <li>Juice & Beverage Packaging</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Food Service</h3>
+        <ul>
+          <li>Bakery Boxes</li>
+          <li>Snack & Dry Fruit Boxes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>International</h3>
+        <ul>
+          <li>Custom Export Packaging</li>
+          <li>Eco-Friendly Solutions</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <h2 class="section-title" style="margin-top: 60px;">Our Products</h2>
+    <div class="grid">
+      <div class="card">
+        <h3><a href="product-paper-bags.html" style="color: #1b5e20; text-decoration: none;">Paper Bags</a></h3>
+        <ul>
+          <li>Grocery Bags</li>
+          <li>Retail/Shopping Bags</li>
+          <li>Sweet/Bakery Carry Bags</li>
+          <li>Standard White Bags</li>
+          <li>Luxury Bags</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><a href="product-packaging-boxes.html" style="color: #1b5e20; text-decoration: none;">Packaging Boxes</a></h3>
+        <ul>
+          <li>Corporate Gifting Boxes</li>
+          <li>Sweet Boxes</li>
+          <li>Snacks Folding Boxes</li>
+          <li>Corrugation Boxes</li>
+          <li>Jewellery Boxes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📄 Catalog Download Section -->
+  <section class="catalog-section">
+    <h2>Download Our Product Catalog</h2>
+    <p>Explore our full range of paper bags, packaging boxes, and eco-friendly solutions in a single downloadable PDF.</p>
+    <a href="assets/catalogs/shree-ram-packers-catalog.pdf" download>
+      <i class="fas fa-file-download"></i> Download Catalog
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+</body>
+</html>

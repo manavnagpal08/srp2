@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paper Bags | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fc;
+      color: #333;
+    }
+
+    /* Header placeholder */
+    #header-placeholder {
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0d47a1;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #1b5e20;
+    }
+
+    .details-section {
+      display: none;
+      margin-top: 30px;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .details-section img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .details-section h2 {
+      color: #0d47a1;
+      margin-bottom: 10px;
+    }
+
+    .details-section p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Load Header -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Our Paper Bags</h1>
+
+    <div class="grid">
+      <div class="product-card" onclick="showDetails('grocery')">
+        <h3>Grocery Bag</h3>
+      </div>
+      <div class="product-card" onclick="showDetails('retail')">
+        <h3>Retail / Shopping Bag</h3>
+      </div>
+      <div class="product-card" onclick="showDetails('bakery')">
+        <h3>Sweet / Bakery Carry Bag</h3>
+      </div>
+      <div class="product-card" onclick="showDetails('white')">
+        <h3>Standard White Bag</h3>
+      </div>
+      <div class="product-card" onclick="showDetails('luxury')">
+        <h3>Luxury Paper Bag</h3>
+      </div>
+    </div>
+
+    <!-- Details Section -->
+    <div class="details-section" id="product-detail">
+      <img id="product-img" src="" alt="Product Image">
+      <h2 id="product-title"></h2>
+      <p id="product-description"></p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+  <script>
+    const products = {
+      grocery: {
+        title: "Grocery Paper Bag",
+        img: "assets/products/grocery-bag.jpg",
+        desc: "Our grocery paper bags are strong, eco-friendly, and available in multiple sizes for everyday use in retail and supermarkets."
+      },
+      retail: {
+        title: "Retail / Shopping Bag",
+        img: "assets/products/retail-bag.jpg",
+        desc: "Perfect for shopping outlets and stores, these bags combine elegance with strength and feature custom branding."
+      },
+      bakery: {
+        title: "Sweet / Bakery Carry Bag",
+        img: "assets/products/bakery-bag.jpg",
+        desc: "Specially crafted for bakeries and sweet shops, these bags are grease-resistant and offer charming aesthetics."
+      },
+      white: {
+        title: "Standard White Bag",
+        img: "assets/products/white-bag.jpg",
+        desc: "Clean and minimal, our standard white paper bags are ideal for branding, food delivery, or product packaging."
+      },
+      luxury: {
+        title: "Luxury Paper Bag",
+        img: "assets/products/luxury-bag.jpg",
+        desc: "Designed for premium brands, luxury paper bags offer embossed printing, rope handles, and a rich feel."
+      }
+    };
+
+    function showDetails(key) {
+      const detail = products[key];
+      document.getElementById("product-title").textContent = detail.title;
+      document.getElementById("product-img").src = detail.img;
+      document.getElementById("product-description").textContent = detail.desc;
+      document.getElementById("product-detail").style.display = 'block';
+      document.getElementById("product-detail").scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

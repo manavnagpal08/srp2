@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      padding: 40px;
+    }
+
+    .admin-form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .admin-form h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0d47a1;
+    }
+
+    .admin-form input, .admin-form textarea, .admin-form select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .admin-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0d47a1;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .admin-form button:hover {
+      background-color: #093272;
+    }
+
+    .success, .error {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-form">
+    <h2>Upload Product</h2>
+    <select id="collection">
+      <option value="paper=bags">Paper Bags</option>
+      <option value="packaging-boxes">Packaging Boxes</option>
+    </select>
+    <input type="text" id="title" placeholder="Product Title" required />
+    <textarea id="description" placeholder="Product Description" rows="4" required></textarea>
+    <input type="text" id="imageURL" placeholder="Image URL (https://...)" required />
+    <button onclick="uploadProduct()">Upload</button>
+    <div id="message"></div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDX1ignbVqrw138rEcoxozFgFqGsCKmWok",
+      authDomain: "srpp-80b0e.firebaseapp.com",
+      projectId: "srpp-80b0e",
+      storageBucket: "srpp-80b0e.appspot.com",
+      messagingSenderId: "607479696432",
+      appId: "1:607479696432:web:0b22e96f4b5a3cbd5971f5",
+      measurementId: "G-GMG7Z059ZQ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function uploadProduct() {
+      const collection = document.getElementById("collection").value;
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const imageURL = document.getElementById("imageURL").value.trim();
+      const message = document.getElementById("message");
+
+      if (!title || !description || !imageURL) {
+        message.innerHTML = "<p class='error'>Please fill all fields.</p>";
+        return;
+      }
+
+      db.collection(collection).add({
+        title,
+        description,
+        imageURL
+      }).then(() => {
+        message.innerHTML = "<p class='success'>Product uploaded successfully!</p>";
+        document.getElementById("title").value = '';
+        document.getElementById("description").value = '';
+        document.getElementById("imageURL").value = '';
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+        message.innerHTML = "<p class='error'>Upload failed. Try again.</p>";
+      });
+    }
+  </script>
+</body>
+</html>

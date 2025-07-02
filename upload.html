@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Product - Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #0d47a1;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="uploadForm">
+    <h2>Add Product</h2>
+
+    <input type="text" name="title" placeholder="Product Title" required />
+    <textarea name="description" placeholder="Product Description" required></textarea>
+    <input type="file" name="image" accept="image/*" required />
+    
+    <select name="collection" required>
+      <option value="">Select Collection</option>
+      <option value="paper-bags">Paper Bags</option>
+      <option value="packaging-boxes">Packaging Boxes</option>
+    </select>
+
+    <button type="submit">Upload</button>
+    <div id="status"></div>
+  </form>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- Upload Script with Logs -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDX1ignbVqrw138rEcoxozFgFqGsCKmWok",
+      authDomain: "srpp-80b0e.firebaseapp.com",
+      projectId: "srpp-80b0e",
+      storageBucket: "srpp-80b0e.appspot.com",
+      messagingSenderId: "607479696432",
+      appId: "1:607479696432:web:0b22e96f4b5a3cbd5971f5",
+      measurementId: "G-GMG7Z059ZQ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    const form = document.getElementById("uploadForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.innerText = "Uploading...";
+
+      const title = form.title.value;
+      const description = form.description.value;
+      const image = form.image.files[0];
+      const collection = form.collection.value;
+
+      if (!title || !description || !image || !collection) {
+        status.innerText = "Please fill all fields.";
+        return;
+      }
+
+      const storageRef = storage.ref().child(`product-images/${Date.now()}_${image.name}`);
+
+      try {
+        const snapshot = await storageRef.put(image);
+        const imageURL = await snapshot.ref.getDownloadURL();
+
+        await db.collection(collection).add({
+          title,
+          description,
+          imageURL,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        status.innerText = "✅ Upload successful!";
+        form.reset();
+      } catch (err) {
+        console.error("❌ Upload failed:", err);
+        status.innerText = "Upload failed: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

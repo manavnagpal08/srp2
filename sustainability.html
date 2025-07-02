@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sustainability | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .hero {
+      background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
+                  url('assets/sustainability-banner.jpg') center center / cover no-repeat;
+      color: white;
+      padding: 60px 30px;
+      text-align: left;
+      height: 35vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .container h2 {
+      font-size: 28px;
+      color: #0d47a1;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card i {
+      font-size: 36px;
+      color: #28a745;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #0d47a1;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .cta {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 50px 30px;
+      margin-top: 60px;
+    }
+
+    .cta h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .cta a {
+      background: white;
+      color: #0d47a1;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    footer {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 35vh;
+        padding: 40px 20px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Load -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Sustainability</h1>
+    <p>At Shree Ram Packers, our commitment to sustainability drives every decision — from eco-materials to energy efficiency.</p>
+  </section>
+
+  <!-- Sustainability Pillars -->
+  <section class="container">
+    <h2>Our Eco Pillars</h2>
+    <div class="card-grid">
+      <div class="card">
+        <i class="fas fa-recycle"></i>
+        <h3>Eco Materials</h3>
+        <p>Recycled kraft, biodegradable board, and soy-based inks lead our material choices.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-seedling"></i>
+        <h3>Zero Waste</h3>
+        <p>Smart design and recycling reduce raw waste in every production cycle.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-bolt"></i>
+        <h3>Energy Efficient</h3>
+        <p>Low-power equipment and intelligent layouts reduce factory emissions.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-hands-helping"></i>
+        <h3>Green Innovation</h3>
+        <p>We're developing plant-based and compostable packaging alternatives.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-leaf"></i>
+        <h3>Reusable Products</h3>
+        <p>Durable paper bags and reusable wraps support long-term eco goals.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h3>Client Education</h3>
+        <p>We provide sustainability guidance to help our clients make smart packaging choices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>Partner for a Greener Tomorrow</h2>
+    <p>Let’s make packaging cleaner, smarter, and more sustainable — together.</p>
+    <a href="contact.html">Contact Us</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+</body>
+</html>

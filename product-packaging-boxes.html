@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Packaging Boxes | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    #header-placeholder {
+      margin-bottom: 30px;
+    }
+
+    .hero {
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
+        url('assets/boxes-hero.jpg') no-repeat center center/cover;
+      padding: 100px 30px;
+      color: white;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+      animation: slideInUp 1s ease-in-out;
+    }
+
+    .box-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .box-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      cursor: pointer;
+      transform: scale(1);
+    }
+
+    .box-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .box-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .box-card h3 {
+      margin: 15px;
+      font-size: 20px;
+      color: #0d47a1;
+    }
+
+    .box-card p {
+      margin: 0 15px 15px;
+      font-size: 15px;
+      display: none;
+      color: #555;
+    }
+
+    .box-card.open p {
+      display: block;
+    }
+
+    footer {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <section class="hero">
+    <h1>Packaging Boxes</h1>
+    <p>Discover our premium and custom packaging box solutions for diverse needs and industries.</p>
+  </section>
+
+  <div class="container">
+    <div class="box-grid" id="boxGrid"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleBox(box) {
+      const isOpen = box.classList.contains('open');
+      document.querySelectorAll('.box-card').forEach(b => b.classList.remove('open'));
+      if (!isOpen) box.classList.add('open');
+    }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDX1ignbVqrw138rEcoxozFgFqGsCKmWok",
+      authDomain: "srpp-80b0e.firebaseapp.com",
+      projectId: "srpp-80b0e",
+      storageBucket: "srpp-80b0e.appspot.com",
+      messagingSenderId: "607479696432",
+      appId: "1:607479696432:web:0b22e96f4b5a3cbd5971f5",
+      measurementId: "G-GMG7Z059ZQ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    db.collection("packaging-boxes").get().then(snapshot => {
+      const grid = document.getElementById("boxGrid");
+      if (snapshot.empty) {
+        grid.innerHTML = "<p>No boxes found.</p>";
+      }
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "box-card";
+        card.onclick = () => toggleBox(card);
+        card.innerHTML = `
+          <img src="${data.imageURL}" alt="${data.title}">
+          <h3>${data.title}</h3>
+          <p>${data.description}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }).catch(error => {
+      console.error("Error loading boxes:", error);
+      document.getElementById("boxGrid").innerHTML = `<p style="color:red;">Failed to load boxes: ${error.message}</p>`;
+    });
+  </script>
+</body>
+</html>

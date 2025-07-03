@@ -17,7 +17,7 @@ header.srp-header {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.srp-header-container {
+.srp-header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,73 +33,88 @@ header.srp-header {
   display: none;
 }
 
-nav.srp-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
+#srp-navbar {
+  background: white;
+  width: 100%;
 }
 
-nav.srp-nav a {
+#srp-navbar ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+#srp-navbar li {
+  position: relative;
+}
+
+#srp-navbar li a {
   text-decoration: none;
   color: #0d47a1;
   font-weight: 600;
   font-size: 16px;
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
 }
 
-nav.srp-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: #0d47a1;
-  bottom: 8px;
-  left: 0;
-  transition: 0.3s ease;
-}
-
-nav.srp-nav a:hover::after {
-  width: 100%;
-}
-
-nav.srp-nav a.srp-contact-btn {
-  background-color: #d60000;
+.srp-contact-btn {
+  background: #d60000;
   color: white;
   padding: 8px 14px;
   border-radius: 5px;
 }
 
-/* MOBILE STYLES */
+.srp-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  z-index: 10000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  min-width: 200px;
+}
+
+.srp-dropdown-content li a {
+  padding: 10px 16px;
+  display: block;
+  color: #333;
+}
+
+.srp-dropdown.open .srp-dropdown-content {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .srp-hamburger {
     display: block;
   }
 
-  nav.srp-nav {
+  #srp-navbar {
     display: none;
     flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    background: white;
-    padding: 10px 0;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   }
 
-  nav.srp-nav.show {
+  #srp-navbar.show {
     display: flex;
   }
 
-  nav.srp-nav a {
-    width: 100%;
-    padding: 12px 20px;
-    border-top: 1px solid #eee;
+  #srp-navbar ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .srp-dropdown-content {
+    position: static;
+    background: #f9f9f9;
+    box-shadow: none;
+    padding-left: 15px;
   }
 }
+
+/* Remaining sections preserved as-is from user CSS (Hero, About, Cards) */
 
 /* HERO SECTION */
 .hero {
@@ -246,35 +261,4 @@ nav.srp-nav a.srp-contact-btn {
   color: #007bff;
   display: inline-block;
   margin-top: 10px;
-}
-
-/* DROPDOWN STYLE */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  min-width: 200px;
-  z-index: 10;
-  top: 100%;
-}
-
-.dropdown-content a {
-  padding: 10px 16px;
-  display: block;
-  text-decoration: none;
-  color: #333;
-}
-
-.dropdown-content a:hover {
-  background-color: #f5f5f5;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }

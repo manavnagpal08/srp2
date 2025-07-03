@@ -4,20 +4,15 @@
       <img src="logo.png" alt="Shree Ram Packers" height="50" />
     </div>
 
-    <div class="menu-controls">
-      <!-- Dark Mode Toggle -->
-      <button class="dark-mode-toggle" id="darkModeBtn">🌓</button>
-
-      <!-- Hamburger Menu -->
-      <div class="hamburger" id="hamburger">☰</div>
-    </div>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
   </div>
 
   <nav id="navbar">
     <a href="index.html">Home</a>
 
     <div class="dropdown">
-      <a href="#" class="dropdown-toggle">About ▾</a>
+      <a href="#" onclick="toggleDropdown(event)">About ▾</a>
       <div class="dropdown-content">
         <a href="company-background.html">Company Background</a>
         <a href="sustainability.html">Sustainability</a>
@@ -28,7 +23,7 @@
     <a href="innovation-technology.html">Innovation and Technology</a>
 
     <div class="dropdown">
-      <a href="#" class="dropdown-toggle">Markets & Products ▾</a>
+      <a href="#" onclick="toggleDropdown(event)">Markets & Products ▾</a>
       <div class="dropdown-content">
         <a href="markets-products.html">Markets</a>
         <a href="product-paper-bags.html">Paper Bags</a>
@@ -41,26 +36,17 @@
   </nav>
 
   <style>
-    :root {
-      --bg-color: #fff;
-      --text-color: #0d47a1;
-      --dropdown-bg: #fff;
-      --hover-bg: #f5f5f5;
-      --button-bg: #d60000;
-      --button-text: #fff;
+    * {
+      box-sizing: border-box;
     }
 
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #ffffff;
-      --dropdown-bg: #1e1e1e;
-      --hover-bg: #333;
-      --button-bg: #ff3333;
-      --button-text: #fff;
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
     }
 
     header {
-      background: var(--bg-color);
+      background: white;
       padding: 15px 20px;
       position: sticky;
       top: 0;
@@ -74,21 +60,14 @@
       align-items: center;
     }
 
-    .menu-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     .logo img {
-      max-height: 50px;
+      height: 50px;
     }
 
     .hamburger {
-      display: none;
       font-size: 28px;
       cursor: pointer;
-      color: var(--text-color);
+      display: none;
     }
 
     nav {
@@ -100,10 +79,9 @@
 
     nav a {
       text-decoration: none;
-      font-family: 'Poppins', sans-serif;
+      color: #0d47a1;
       font-weight: 600;
       font-size: 16px;
-      color: var(--text-color);
       position: relative;
     }
 
@@ -112,7 +90,7 @@
       position: absolute;
       width: 0;
       height: 2px;
-      background: var(--text-color);
+      background: #0d47a1;
       bottom: -4px;
       left: 0;
       transition: 0.3s;
@@ -123,8 +101,8 @@
     }
 
     .contact-btn {
-      background: var(--button-bg);
-      color: var(--button-text);
+      background: #d60000;
+      color: white;
       padding: 8px 14px;
       border-radius: 5px;
     }
@@ -136,7 +114,7 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: var(--dropdown-bg);
+      background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       min-width: 200px;
       top: 100%;
@@ -147,24 +125,15 @@
     .dropdown-content a {
       display: block;
       padding: 10px 16px;
-      text-decoration: none;
-      color: var(--text-color);
+      color: #333;
     }
 
     .dropdown-content a:hover {
-      background-color: var(--hover-bg);
+      background-color: #f5f5f5;
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
-    }
-
-    .dark-mode-toggle {
-      font-size: 20px;
-      border: none;
-      background: transparent;
-      color: var(--text-color);
-      cursor: pointer;
     }
 
     /* Mobile Styles */
@@ -177,10 +146,10 @@
         display: none;
         flex-direction: column;
         align-items: flex-start;
-        background-color: var(--bg-color);
+        background: white;
+        padding: 15px 20px;
         width: 100%;
-        padding: 15px;
-        animation: slideDown 0.3s ease;
+        margin-top: 10px;
       }
 
       nav.show {
@@ -198,40 +167,20 @@
         padding-left: 10px;
       }
     }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   </style>
 
   <script>
-    // Toggle hamburger menu
-    document.getElementById("hamburger").addEventListener("click", () => {
-      document.getElementById("navbar").classList.toggle("show");
-    });
+    function toggleMobileMenu() {
+      const nav = document.getElementById("navbar");
+      nav.classList.toggle("show");
+    }
 
-    // Toggle dark mode
-    document.getElementById("darkModeBtn").addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-    });
-
-    // Enable dropdown toggling in mobile
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".dropdown-toggle").forEach(link => {
-        link.addEventListener("click", function (e) {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
-            this.parentElement.classList.toggle("open");
-          }
-        });
-      });
-    });
+    function toggleDropdown(event) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        const dropdown = event.target.parentElement;
+        dropdown.classList.toggle("open");
+      }
+    }
   </script>
 </header>

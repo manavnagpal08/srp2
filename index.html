@@ -2,130 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Shree Ram Packers | Home</title>
+  <title>Shree Ram Packers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      padding-top: 100px;
       font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
     }
-
-    /* === HEADER STYLES === */
-    header.srp-header {
-      background: white;
-      padding: 15px 20px;
-      position: fixed;
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #bg-video {
+      position: absolute;
       top: 0;
-      width: 100%;
-      z-index: 9999;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
     }
-
-    .srp-header-container {
+    .hero-text {
+      position: relative;
+      height: 100%;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-    }
-
-    .srp-logo img {
-      height: 50px;
-    }
-
-    .srp-hamburger {
-      font-size: 28px;
-      cursor: pointer;
-      display: none;
-    }
-
-    nav.srp-nav {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      flex-direction: row; /* Fix for desktop */
-      flex-wrap: wrap;
-    }
-
-    nav.srp-nav a {
-      text-decoration: none;
-      color: #0d47a1;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .srp-contact-btn {
-      background: #d60000;
+      padding: 0 20px;
+      text-align: center;
       color: white;
-      padding: 8px 14px;
-      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .hero-text h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    .hero-text p {
+      font-size: 18px;
+      max-width: 700px;
     }
 
-    /* === MOBILE MENU === */
+    .cards-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 60px 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h4 {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #0d47a1;
+    }
+    .card p {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 15px;
+      color: #d60000;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      background: #0d47a1;
+      color: white;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
     @media (max-width: 768px) {
-      .srp-hamburger {
-        display: block;
+      .hero-text h1 {
+        font-size: 28px;
       }
-
-      nav.srp-nav {
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        max-height: none !important;
-        overflow: visible !important;
-        background: white;
-        padding: 10px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      }
-
-      nav.srp-nav.show {
-        display: flex;
-      }
-
-      nav.srp-nav a {
-        width: 100%;
-        padding: 12px 20px;
-        border-top: 1px solid #eee;
+      .hero-text p {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Responsive Sticky Header -->
-  <header class="srp-header">
-    <div class="srp-header-container">
-      <div class="srp-logo">
-        <img src="logo.png" alt="Shree Ram Packers" />
-      </div>
-      <div class="srp-hamburger" onclick="toggleNav()">☰</div>
-    </div>
-    <nav class="srp-nav" id="mainNav">
-      <a href="index.html">Home</a>
-      <a href="company-background.html">Company Background</a>
-      <a href="sustainability.html">Sustainability</a>
-      <a href="certifications.html">Quality & Certifications</a>
-      <a href="innovation-technology.html">Innovation & Technology</a>
-      <a href="markets-products.html">Markets</a>
-      <a href="product-paper-bags.html">Paper Bags</a>
-      <a href="product-packaging-boxes.html">Packaging Boxes</a>
-      <a href="locations.html">Locations</a>
-      <a href="contact.html" class="srp-contact-btn">Contact</a>
-    </nav>
-  </header>
-
+  <!-- Load Header -->
+  <div id="header-placeholder"></div>
   <script>
-    function toggleNav() {
-      document.getElementById("mainNav").classList.toggle("show");
-    }
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
   </script>
 
-  <!-- ✅ Page Content -->
-  <main style="padding: 20px;">
-    <h1>Welcome to Shree Ram Packers</h1>
-    <p>This is your homepage content. Update this section with your company’s welcome or highlights.</p>
-  </main>
+  <!-- Hero Section with Background Video -->
+  <section class="hero">
+    <video autoplay muted loop id="bg-video">
+      <source src="bg.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="hero-text">
+      <h1>Smart, Sustainable Packaging for Tomorrow</h1>
+      <p>At Shree Ram Packers, we combine innovation and responsibility to deliver packaging that powers your brand and protects the planet.</p>
+    </div>
+  </section>
+
+  <!-- News & Innovation Section -->
+  <section class="cards-section">
+    <div class="card">
+      <h4>COMPANY NEWS</h4>
+      <h3>Shree Ram Packers Launches New Eco Product Line</h3>
+      <p>We've introduced a new range of recyclable paper bags and compostable boxes designed to reduce environmental impact without compromising quality.</p>
+      <a href="sustainability.html">Explore Sustainability</a>
+    </div>
+
+    <div class="card">
+      <h4>CLIENT IMPACT</h4>
+      <h3>Packaging for Global Export</h3>
+      <p>Our corrugated and rigid boxes are now being used by international clients across Europe and Southeast Asia. Proud to support Make in India.</p>
+      <a href="product-packaging-boxes.html">View Our Boxes</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
 
 </body>
 </html>

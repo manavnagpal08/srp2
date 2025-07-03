@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -5,58 +6,85 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* Navbar */
-.navbar {
+/* === HEADER === */
+header.srp-header {
+  background: white;
+  padding: 15px 20px;
   position: fixed;
   top: 0;
   width: 100%;
-  background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 100;
-  padding: 10px 0;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
+.srp-header-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  align-items: center;
 }
 
-.logo img {
-  height: 40px;
+.srp-logo img {
+  height: 50px;
 }
 
-.nav-menu {
+.srp-hamburger {
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+}
+
+nav.srp-nav {
   display: flex;
   gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-.nav-menu a {
+nav.srp-nav a {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 14px;
-  padding: 6px 10px;
-  transition: color 0.3s;
+  color: #0d47a1;
+  font-weight: 600;
+  font-size: 16px;
 }
 
-.nav-menu a:hover {
-  color: #007bff;
+.srp-contact-btn {
+  background: #d60000;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
 }
 
-.contact-btn {
-  background-color: #d60000;
-  color: white !important;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-weight: bold;
+/* === MOBILE HEADER === */
+@media (max-width: 768px) {
+  .srp-hamburger {
+    display: block;
+  }
+
+  nav.srp-nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-height: none !important;
+    overflow: visible !important;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  nav.srp-nav.show {
+    display: flex;
+  }
+
+  nav.srp-nav a {
+    width: 100%;
+    padding: 12px 20px;
+    border-top: 1px solid #eee;
+  }
 }
 
-/* Hero Section */
+/* === PAGE SECTIONS === */
 .hero {
   position: relative;
   height: 100vh;
@@ -96,7 +124,7 @@
   font-size: 18px;
 }
 
-/* About Section */
+/* === ABOUT SECTION === */
 .about {
   padding: 80px 20px;
   background-color: #f8f9fb;
@@ -115,7 +143,7 @@
   width: 100%;
   max-width: 500px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .about-text {
@@ -157,7 +185,7 @@
   background-color: #0056b3;
 }
 
-/* Cards (News Section Below About) */
+/* === CARDS SECTION === */
 .cards-section {
   display: flex;
   justify-content: center;
@@ -171,7 +199,7 @@
   background: white;
   padding: 20px;
   border-left: 4px solid #007bff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   max-width: 300px;
 }
@@ -202,152 +230,5 @@
   display: inline-block;
   margin-top: 10px;
 }
-/* Dropdown menu styling */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
 
-.dropbtn {
-  background: none;
-  border: none;
-  font-size: 16px;
-  padding: 14px 16px;
-  cursor: pointer;
-  font-family: inherit;
-  color: black;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 220px;
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 10px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #f2f2f2;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-header {
-  height: 80px;
-  background: white;
-  padding: 0 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  height: 100%;
-}
-
-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: #0d47a1;
-  bottom: 12px;
-  left: 0;
-  transition: 0.3s ease;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-nav a.contact-btn {
-  background-color: #d60000;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 5px;
-}
-
-.dropdown {
-  position: relative;
-  height: 100%;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  min-width: 200px;
-  z-index: 10;
-  top: 100%;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content a {
-  padding: 10px 16px;
-  display: block;
-  text-decoration: none;
-  color: #333;
-}
-
-.dropdown-content a:hover {
-  background-color: #f5f5f5;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  min-width: 200px;
-  z-index: 10;
-  top: 100%;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content a {
-  padding: 10px 16px;
-  display: block;
-  text-decoration: none;
-  color: #333;
-}
-
-.dropdown-content a:hover {
-  background-color: #f5f5f5;
-}
+/* REMOVE ALL OLD HEADER STYLES THAT CLASH */

@@ -1,14 +1,15 @@
 <header>
-  <div class="logo">
-    <img src="logo.png" alt="Shree Ram Packers" height="50" />
+  <div class="header-top">
+    <div class="logo">
+      <img src="logo.png" alt="Shree Ram Packers" height="50" />
+    </div>
+    <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
   </div>
 
-  <!-- Hamburger icon -->
-  <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
-
-  <!-- Desktop navigation -->
+  <!-- Desktop Menu -->
   <nav class="desktop-nav">
     <a href="index.html">Home</a>
+
     <div class="dropdown">
       <a href="#">About ▾</a>
       <div class="dropdown-content">
@@ -17,7 +18,9 @@
         <a href="certifications.html">Certifications</a>
       </div>
     </div>
-    <a href="#">Innovation</a>
+
+    <a href="#">Innovation and Technology</a>
+
     <div class="dropdown">
       <a href="#">Markets & Products ▾</a>
       <div class="dropdown-content">
@@ -26,52 +29,72 @@
         <a href="product-packaging-boxes.html">Packaging Boxes</a>
       </div>
     </div>
+
     <a href="locations.html">Locations</a>
     <a href="contact.html" class="contact-btn">Contact</a>
   </nav>
 
-  <!-- Mobile menu -->
-  <div class="mobile-nav" id="mobileMenu">
+  <!-- Mobile Menu -->
+  <nav class="mobile-nav" id="mobileMenu">
     <a href="index.html">Home</a>
-    <a href="#">About</a>
-    <a href="#">Innovation</a>
-    <a href="#">Markets & Products</a>
+    <details>
+      <summary>About</summary>
+      <a href="company-background.html">Company Background</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="certifications.html">Certifications</a>
+    </details>
+
+    <a href="#">Innovation and Technology</a>
+
+    <details>
+      <summary>Markets & Products</summary>
+      <a href="markets-products.html">Markets</a>
+      <a href="product-paper-bags.html">Paper Bags</a>
+      <a href="product-packaging-boxes.html">Packaging Boxes</a>
+    </details>
+
     <a href="locations.html">Locations</a>
     <a href="contact.html" class="contact-btn">Contact</a>
-  </div>
+  </nav>
 
   <style>
     header {
       background: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 999;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    .logo img {
-      height: 50px;
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .hamburger {
+      font-size: 26px;
+      display: none;
+      cursor: pointer;
+    }
+
+    .desktop-nav,
+    .mobile-nav {
+      padding: 0 20px;
     }
 
     .desktop-nav {
       display: flex;
-      align-items: center;
       gap: 20px;
+      align-items: center;
     }
 
-    nav a {
+    .desktop-nav a {
       text-decoration: none;
       color: #333;
       font-weight: 500;
       position: relative;
-    }
-
-    nav a:hover::after {
-      width: 100%;
     }
 
     .contact-btn {
@@ -106,34 +129,29 @@
       color: #333;
     }
 
-    /* Hamburger */
-    .hamburger {
-      font-size: 26px;
-      display: none;
-      cursor: pointer;
-    }
-
-    /* Mobile menu styles */
+    /* Mobile Nav */
     .mobile-nav {
       display: none;
       flex-direction: column;
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      background-color: #003c6c;
+      background: #004a7c;
       padding: 20px;
     }
 
-    .mobile-nav a {
+    .mobile-nav a,
+    .mobile-nav summary {
       color: white;
-      padding: 10px 0;
       text-decoration: none;
+      padding: 10px 0;
+      font-weight: 500;
+    }
+
+    .mobile-nav details[open] a {
+      padding-left: 20px;
+      font-weight: normal;
     }
 
     .mobile-nav .contact-btn {
       background: red;
-      padding: 10px;
       margin-top: 10px;
     }
 
@@ -154,8 +172,8 @@
 
   <script>
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('show');
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
     }
   </script>
 </header>

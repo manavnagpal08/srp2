@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Shree Ram Packers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>Shree Ram Packers | Home</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
-      padding-top: 120px;
       font-family: 'Poppins', sans-serif;
       background-color: #f5f7fa;
       color: #333;
+      padding-top: 120px;
     }
     .hero {
       position: relative;
@@ -28,134 +24,49 @@
       left: 0;
       min-width: 100%;
       min-height: 100%;
-      z-index: -1;
       object-fit: cover;
+      z-index: -1;
     }
     .hero-text {
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0 20px;
-      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
-      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
     }
     .hero-text h1 {
-      font-size: 42px;
+      font-size: 36px;
       margin-bottom: 10px;
     }
     .hero-text p {
       font-size: 18px;
-      max-width: 700px;
-    }
-
-    .cards-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 60px 30px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 25px;
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card h4 {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 8px;
-    }
-    .card h3 {
-      font-size: 20px;
-      margin-bottom: 12px;
-      color: #0d47a1;
-    }
-    .card p {
-      font-size: 15px;
-      color: #555;
-      line-height: 1.6;
-    }
-    .card a {
-      display: inline-block;
-      margin-top: 15px;
-      color: #d60000;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    footer {
-      text-align: center;
-      background: #0d47a1;
-      color: white;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .hero-text h1 {
-        font-size: 28px;
-      }
-      .hero-text p {
-        font-size: 16px;
-      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Load Header -->
   <div id="header-placeholder"></div>
+
   <script>
     fetch("header.html")
-      .then(response => response.text())
+      .then(res => res.text())
       .then(data => {
         document.getElementById("header-placeholder").innerHTML = data;
       });
   </script>
 
-  <!-- Hero Section with Background Video -->
   <section class="hero">
     <video autoplay muted loop id="bg-video">
-      <source src="bg.mp4" type="video/mp4" />
-      Your browser does not support HTML5 video.
+      <source src="your-video.mp4" type="video/mp4" />
     </video>
     <div class="hero-text">
-      <h1>Smart, Sustainable Packaging for Tomorrow</h1>
-      <p>At Shree Ram Packers, we combine innovation and responsibility to deliver packaging that powers your brand and protects the planet.</p>
+      <h1>Welcome to Shree Ram Packers</h1>
+      <p>Innovative, sustainable packaging solutions</p>
     </div>
   </section>
-
-  <!-- News & Innovation Section -->
-  <section class="cards-section">
-    <div class="card">
-      <h4>COMPANY NEWS</h4>
-      <h3>Shree Ram Packers Launches New Eco Product Line</h3>
-      <p>We've introduced a new range of recyclable paper bags and compostable boxes designed to reduce environmental impact without compromising quality.</p>
-      <a href="sustainability.html">Explore Sustainability</a>
-    </div>
-
-    <div class="card">
-      <h4>CLIENT IMPACT</h4>
-      <h3>Packaging for Global Export</h3>
-      <p>Our corrugated and rigid boxes are now being used by international clients across Europe and Southeast Asia. Proud to support Make in India.</p>
-      <a href="product-packaging-boxes.html">View Our Boxes</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Shree Ram Packers. All rights reserved.
-  </footer>
-
 </body>
 </html>

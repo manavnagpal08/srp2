@@ -1,3 +1,4 @@
+<!-- ✅ Final header.html -->
 <header class="srp-header">
   <div class="srp-header-top">
     <div class="srp-logo">
@@ -9,7 +10,6 @@
   <nav id="srp-navbar">
     <ul>
       <li><a href="index.html">Home</a></li>
-
       <li class="srp-dropdown">
         <a href="#" onclick="toggleDropdown(event, 'about')">About ▾</a>
         <ul class="srp-dropdown-content" id="about">
@@ -18,9 +18,7 @@
           <li><a href="certifications.html">Quality & Certifications</a></li>
         </ul>
       </li>
-
       <li><a href="innovation-technology.html">Innovation & Technology</a></li>
-
       <li class="srp-dropdown">
         <a href="#" onclick="toggleDropdown(event, 'products')">Markets & Products ▾</a>
         <ul class="srp-dropdown-content" id="products">
@@ -29,7 +27,6 @@
           <li><a href="product-packaging-boxes.html">Packaging Boxes</a></li>
         </ul>
       </li>
-
       <li><a href="locations.html">Locations</a></li>
       <li><a href="contact.html" class="srp-contact-btn">Contact</a></li>
     </ul>
@@ -38,33 +35,28 @@
   <style>
     .srp-header {
       position: relative;
-      z-index: 9999;
+      z-index: 10000;
       background: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
-
     .srp-header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px 20px;
     }
-
     .srp-logo img {
       height: 50px;
     }
-
     .srp-hamburger {
       font-size: 28px;
       cursor: pointer;
       display: none;
     }
-
     #srp-navbar {
       background: white;
       width: 100%;
     }
-
     #srp-navbar ul {
       display: flex;
       gap: 20px;
@@ -73,25 +65,21 @@
       padding: 10px 20px;
       flex-wrap: wrap;
     }
-
     #srp-navbar li {
       position: relative;
     }
-
     #srp-navbar li a {
       text-decoration: none;
       color: #0d47a1;
       font-weight: 600;
       font-size: 16px;
     }
-
     .srp-contact-btn {
       background: #d60000;
       color: white;
       padding: 8px 14px;
       border-radius: 5px;
     }
-
     .srp-dropdown-content {
       display: none;
       position: absolute;
@@ -99,41 +87,33 @@
       left: 0;
       background: white;
       z-index: 10000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       list-style: none;
       min-width: 200px;
     }
-
     .srp-dropdown-content li a {
       padding: 10px 16px;
       display: block;
       color: #333;
     }
-
     .srp-dropdown.open .srp-dropdown-content {
       display: block;
     }
-
-    /* Mobile Fixes */
     @media (max-width: 768px) {
       .srp-hamburger {
         display: block;
       }
-
       #srp-navbar {
         display: none;
         flex-direction: column;
       }
-
       #srp-navbar.show {
         display: flex;
       }
-
       #srp-navbar ul {
         flex-direction: column;
         gap: 0;
       }
-
       .srp-dropdown-content {
         position: static;
         background: #f9f9f9;
@@ -147,7 +127,6 @@
     function toggleSrpNav() {
       document.getElementById("srp-navbar").classList.toggle("show");
     }
-
     function toggleDropdown(e, id) {
       e.preventDefault();
       document.getElementById(id).parentElement.classList.toggle("open");

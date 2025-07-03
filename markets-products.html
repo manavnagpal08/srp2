@@ -133,13 +133,18 @@
 
   <!-- Header -->
   <div id="header-placeholder"></div>
-  <script>
-    fetch("header.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("header-placeholder").innerHTML = data;
-      });
-  </script>
+
+<script>
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+      const script = document.createElement("script");
+      script.src = "header.js";
+      document.body.appendChild(script);
+    });
+</script>
+
 
   <!-- Hero Section -->
   <section class="hero">

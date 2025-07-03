@@ -143,13 +143,15 @@
 </head>
 <body>
 
-  <!-- Header Load -->
+  <!-- Header Placeholder -->
   <div id="header-placeholder"></div>
   <script>
     fetch("header.html")
       .then(res => res.text())
       .then(data => {
         document.getElementById("header-placeholder").innerHTML = data;
+
+        // Re-run header scripts for dropdowns and mobile nav
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = data;
         const scripts = tempDiv.querySelectorAll("script");
@@ -209,7 +211,7 @@
     &copy; 2025 Shree Ram Packers. All rights reserved.
   </footer>
 
-  <!-- AOS Script -->
+  <!-- AOS Animation -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init();</script>
 

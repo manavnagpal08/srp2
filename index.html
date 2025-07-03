@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      padding-top: 100px; /* makes space for sticky header */
+      padding-top: 100px;
       font-family: 'Poppins', sans-serif;
     }
 
@@ -43,6 +43,7 @@
       display: flex;
       gap: 20px;
       align-items: center;
+      flex-direction: row; /* Fix for desktop */
       flex-wrap: wrap;
     }
 
@@ -60,7 +61,7 @@
       border-radius: 5px;
     }
 
-    /* === MOBILE MENU STYLES === */
+    /* === MOBILE MENU === */
     @media (max-width: 768px) {
       .srp-hamburger {
         display: block;
@@ -69,7 +70,10 @@
       nav.srp-nav {
         display: none;
         flex-direction: column;
+        align-items: flex-start;
         width: 100%;
+        max-height: none !important;
+        overflow: visible !important;
         background: white;
         padding: 10px 0;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -80,16 +84,16 @@
       }
 
       nav.srp-nav a {
+        width: 100%;
         padding: 12px 20px;
         border-top: 1px solid #eee;
-        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Sticky Responsive Header -->
+  <!-- ✅ Responsive Sticky Header -->
   <header class="srp-header">
     <div class="srp-header-container">
       <div class="srp-logo">
@@ -117,10 +121,10 @@
     }
   </script>
 
-  <!-- ✅ Main Page Content -->
+  <!-- ✅ Page Content -->
   <main style="padding: 20px;">
     <h1>Welcome to Shree Ram Packers</h1>
-    <p>This is your homepage content. Update this section as you like.</p>
+    <p>This is your homepage content. Update this section with your company’s welcome or highlights.</p>
   </main>
 
 </body>

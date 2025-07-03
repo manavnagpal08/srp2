@@ -1,137 +1,170 @@
-<header class="custom-header">
-  <div class="logo">
-    <img src="logo.png" alt="Shree Ram Packers" />
+<header class="srp-header">
+  <div class="srp-container">
+    <div class="srp-logo">
+      <img src="logo.png" alt="Shree Ram Packers" />
+    </div>
+    <div class="srp-hamburger" onclick="toggleSrpMenu()">☰</div>
   </div>
-  <div class="hamburger" onclick="toggleMobileNav()">☰</div>
 
-  <div id="mobile-nav">
+  <nav class="srp-nav" id="srpNav">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'about')">About ▾</a>
-        <ul class="dropdown-content" id="about">
+
+      <li class="srp-dropdown">
+        <a href="#" onclick="toggleSrpDropdown(event, 'aboutDrop')">About ▾</a>
+        <ul class="srp-dropdown-content" id="aboutDrop">
           <li><a href="company-background.html">Company Background</a></li>
           <li><a href="sustainability.html">Sustainability</a></li>
           <li><a href="certifications.html">Quality & Certifications</a></li>
         </ul>
       </li>
+
       <li><a href="innovation-technology.html">Innovation & Technology</a></li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'products')">Markets & Products ▾</a>
-        <ul class="dropdown-content" id="products">
+
+      <li class="srp-dropdown">
+        <a href="#" onclick="toggleSrpDropdown(event, 'productDrop')">Markets & Products ▾</a>
+        <ul class="srp-dropdown-content" id="productDrop">
           <li><a href="markets-products.html">Markets</a></li>
           <li><a href="product-paper-bags.html">Paper Bags</a></li>
           <li><a href="product-packaging-boxes.html">Packaging Boxes</a></li>
         </ul>
       </li>
+
       <li><a href="locations.html">Locations</a></li>
-      <li><a href="contact.html" class="contact-btn">Contact</a></li>
+      <li><a href="contact.html" class="srp-contact-btn">Contact</a></li>
     </ul>
-  </div>
+  </nav>
 
   <style>
-    .custom-header {
+    .srp-header {
       background: white;
-      padding: 15px 20px;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .srp-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .custom-header .logo img {
+    .srp-logo img {
       height: 50px;
     }
 
-    .hamburger {
+    .srp-hamburger {
       font-size: 28px;
       cursor: pointer;
       display: none;
     }
 
-    #mobile-nav {
+    .srp-nav {
       display: flex;
-      gap: 20px;
+      justify-content: flex-end;
     }
 
-    #mobile-nav ul {
-      display: flex;
-      gap: 20px;
+    .srp-nav ul {
       list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 10px 0;
       margin: 0;
-      padding: 0;
     }
 
-    #mobile-nav li a {
+    .srp-nav ul li {
+      position: relative;
+    }
+
+    .srp-nav ul li a {
       text-decoration: none;
       color: #0d47a1;
       font-weight: 600;
-      padding: 10px 0;
+      font-size: 16px;
       display: block;
+      padding: 8px 0;
     }
 
-    .contact-btn {
+    .srp-contact-btn {
       background: #d60000;
       color: white;
       padding: 8px 14px;
       border-radius: 5px;
     }
 
-    .dropdown-content {
+    .srp-dropdown-content {
       display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
       list-style: none;
-      padding-left: 10px;
+      min-width: 200px;
+      padding: 0;
     }
 
-    .dropdown.open .dropdown-content {
+    .srp-dropdown-content li a {
+      padding: 10px 16px;
+      display: block;
+      color: #333;
+    }
+
+    .srp-dropdown-content li a:hover {
+      background: #f0f0f0;
+    }
+
+    .srp-dropdown.open .srp-dropdown-content {
       display: block;
     }
 
-    /* Mobile view */
+    /* Mobile */
     @media (max-width: 768px) {
-      .hamburger {
+      .srp-hamburger {
         display: block;
       }
 
-      #mobile-nav {
+      .srp-nav {
         display: none;
         flex-direction: column;
-        background: #fff;
         width: 100%;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        z-index: 999;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       }
 
-      #mobile-nav.show {
+      .srp-nav.show {
         display: flex;
       }
 
-      #mobile-nav ul {
+      .srp-nav ul {
         flex-direction: column;
-        gap: 10px;
+        gap: 0;
       }
 
-      #mobile-nav .dropdown-content {
-        padding-left: 20px;
+      .srp-nav ul li a {
+        padding: 12px 20px;
+      }
+
+      .srp-dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: #f8f8f8;
+      }
+
+      .srp-dropdown-content li a {
+        padding-left: 30px;
       }
     }
   </style>
 
   <script>
-    function toggleMobileNav() {
-      const nav = document.getElementById("mobile-nav");
-      nav.classList.toggle("show");
+    function toggleSrpMenu() {
+      document.getElementById("srpNav").classList.toggle("show");
     }
 
-    function toggleDropdown(e, id) {
-      e.preventDefault();
+    function toggleSrpDropdown(event, id) {
+      event.preventDefault();
       document.getElementById(id).parentElement.classList.toggle("open");
     }
   </script>

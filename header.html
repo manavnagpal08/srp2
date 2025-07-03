@@ -1,20 +1,18 @@
 <header>
   <div class="header-container">
     <div class="logo">
-      <img src="logo.png" alt="Shree Ram Packers" height="50" />
+      <img src="logo.png" alt="Shree Ram Packers" />
     </div>
-
-    <!-- Hamburger icon -->
-    <div class="hamburger" id="hamburger">&#9776;</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
 
-  <nav id="mobile-menu">
+  <nav id="navbar">
     <ul>
       <li><a href="index.html">Home</a></li>
 
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'about-menu')">About ▾</a>
-        <ul id="about-menu" class="submenu">
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'about-dropdown')">About ▾</a>
+        <ul class="dropdown-menu" id="about-dropdown">
           <li><a href="company-background.html">Company Background</a></li>
           <li><a href="sustainability.html">Sustainability</a></li>
           <li><a href="certifications.html">Quality & Certifications</a></li>
@@ -23,9 +21,9 @@
 
       <li><a href="innovation-technology.html">Innovation and Technology</a></li>
 
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'products-menu')">Markets & Products ▾</a>
-        <ul id="products-menu" class="submenu">
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'products-dropdown')">Markets & Products ▾</a>
+        <ul class="dropdown-menu" id="products-dropdown">
           <li><a href="markets-products.html">Markets</a></li>
           <li><a href="product-paper-bags.html">Paper Bags</a></li>
           <li><a href="product-packaging-boxes.html">Packaging Boxes</a></li>
@@ -40,17 +38,16 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
     }
 
     header {
       background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -60,7 +57,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 10px 20px;
     }
 
     .logo img {
@@ -73,15 +70,14 @@
       display: none;
     }
 
-    nav {
-      background: white;
-    }
-
     nav ul {
-      list-style: none;
       display: flex;
       gap: 20px;
+      list-style: none;
       padding: 10px 20px;
+      margin: 0;
+      align-items: center;
+      background: white;
     }
 
     nav ul li {
@@ -93,8 +89,8 @@
       color: #0d47a1;
       font-weight: 600;
       font-size: 16px;
-      display: block;
       padding: 8px 0;
+      display: inline-block;
     }
 
     .contact-btn {
@@ -104,31 +100,35 @@
       border-radius: 5px;
     }
 
-    .submenu {
+    .dropdown-menu {
       display: none;
       position: absolute;
-      top: 35px;
+      top: 100%;
       left: 0;
       background: white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      list-style: none;
       padding: 0;
-      z-index: 100;
+      margin: 0;
+      min-width: 200px;
     }
 
-    .submenu li {
-      width: 200px;
-    }
-
-    .submenu li a {
+    .dropdown-menu li a {
       padding: 10px 16px;
+      display: block;
       color: #333;
     }
 
-    .submenu li a:hover {
+    .dropdown-menu li a:hover {
       background: #f0f0f0;
     }
 
-    /* Mobile Styles */
+    /* Desktop dropdown on hover */
+    .has-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Mobile styles */
     @media (max-width: 768px) {
       .hamburger {
         display: block;
@@ -144,32 +144,47 @@
 
       nav ul {
         flex-direction: column;
-        padding: 10px 20px;
+        gap: 0;
       }
 
-      .submenu {
-        position: static;
-        box-shadow: none;
+      nav ul li {
         width: 100%;
       }
 
-      .submenu li a {
-        padding-left: 25px;
+      nav ul li a {
+        padding: 10px 16px;
+        width: 100%;
+      }
+
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+      }
+
+      .has-dropdown .dropdown-menu {
+        display: none;
+      }
+
+      .has-dropdown.open .dropdown-menu {
+        display: block;
       }
     }
   </style>
 
   <script>
-    // Show/hide mobile nav
-    document.getElementById("hamburger").addEventListener("click", () => {
-      document.getElementById("mobile-menu").classList.toggle("show");
-    });
+    // Toggle full nav on small screens
+    function toggleMenu() {
+      document.getElementById('navbar').classList.toggle('show');
+    }
 
-    // Show/hide submenus
-    function toggleDropdown(event, menuId) {
+    // Toggle dropdown on small screens
+    function toggleDropdown(event, id) {
       event.preventDefault();
-      const submenu = document.getElementById(menuId);
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+      if (window.innerWidth <= 768) {
+        const dropdown = document.getElementById(id);
+        const parent = dropdown.parentElement;
+        parent.classList.toggle('open');
+      }
     }
   </script>
 </header>

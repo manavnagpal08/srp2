@@ -2,71 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shree Ram Packers | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
+      padding-top: 100px; /* make space for sticky header */
       font-family: 'Poppins', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      padding-top: 120px;
     }
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-    }
-    #bg-video {
-      position: absolute;
+
+    header.srp-header {
+      background: white;
+      padding: 15px 20px;
+      position: fixed;
       top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      width: 100%;
+      z-index: 9999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+
+    .srp-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .srp-logo img {
+      height: 50px;
+    }
+
+    .srp-hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      display: none;
+    }
+
+    nav.srp-nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .srp-nav a {
+      text-decoration: none;
+      color: #0d47a1;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .srp-contact-btn {
+      background: #d60000;
       color: white;
-      text-align: center;
-      z-index: 1;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 10px;
+      padding: 8px 14px;
+      border-radius: 5px;
     }
-    .hero-text h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-    .hero-text p {
-      font-size: 18px;
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .srp-hamburger {
+        display: block;
+      }
+
+      nav.srp-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      nav.srp-nav.show {
+        display: flex;
+      }
+
+      nav.srp-nav a {
+        padding: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="header-placeholder"></div>
+
+  <!-- ✅ Inline working header -->
+  <header class="srp-header">
+    <div class="srp-header-container">
+      <div class="srp-logo">
+        <img src="logo.png" alt="Shree Ram Packers" />
+      </div>
+      <div class="srp-hamburger" onclick="toggleNav()">☰</div>
+    </div>
+    <nav class="srp-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="company-background.html">Company Background</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="certifications.html">Quality & Certifications</a>
+      <a href="innovation-technology.html">Innovation & Technology</a>
+      <a href="markets-products.html">Markets</a>
+      <a href="product-paper-bags.html">Paper Bags</a>
+      <a href="product-packaging-boxes.html">Packaging Boxes</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html" class="srp-contact-btn">Contact</a>
+    </nav>
+  </header>
 
   <script>
-    fetch("header.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("header-placeholder").innerHTML = data;
-      });
+    function toggleNav() {
+      document.getElementById("mainNav").classList.toggle("show");
+    }
   </script>
 
-  <section class="hero">
-    <video autoplay muted loop id="bg-video">
-      <source src="your-video.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-text">
-      <h1>Welcome to Shree Ram Packers</h1>
-      <p>Innovative, sustainable packaging solutions</p>
-    </div>
-  </section>
+  <!-- ✅ Content starts here -->
+  <main style="padding: 20px;">
+    <h1>Welcome to Shree Ram Packers</h1>
+    <p>This is your homepage content.</p>
+  </main>
+
 </body>
 </html>

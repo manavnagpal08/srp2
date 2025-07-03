@@ -4,60 +4,63 @@
       <img src="logo.png" alt="Shree Ram Packers" height="50" />
     </div>
 
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+    <!-- Hamburger icon -->
+    <div class="hamburger" id="hamburger">&#9776;</div>
   </div>
 
-  <nav id="navbar">
-    <a href="index.html">Home</a>
+  <nav id="mobile-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
 
-    <div class="dropdown">
-      <a href="#" onclick="toggleDropdown(event)">About ▾</a>
-      <div class="dropdown-content">
-        <a href="company-background.html">Company Background</a>
-        <a href="sustainability.html">Sustainability</a>
-        <a href="certifications.html">Quality & Certifications</a>
-      </div>
-    </div>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'about-menu')">About ▾</a>
+        <ul id="about-menu" class="submenu">
+          <li><a href="company-background.html">Company Background</a></li>
+          <li><a href="sustainability.html">Sustainability</a></li>
+          <li><a href="certifications.html">Quality & Certifications</a></li>
+        </ul>
+      </li>
 
-    <a href="innovation-technology.html">Innovation and Technology</a>
+      <li><a href="innovation-technology.html">Innovation and Technology</a></li>
 
-    <div class="dropdown">
-      <a href="#" onclick="toggleDropdown(event)">Markets & Products ▾</a>
-      <div class="dropdown-content">
-        <a href="markets-products.html">Markets</a>
-        <a href="product-paper-bags.html">Paper Bags</a>
-        <a href="product-packaging-boxes.html">Packaging Boxes</a>
-      </div>
-    </div>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'products-menu')">Markets & Products ▾</a>
+        <ul id="products-menu" class="submenu">
+          <li><a href="markets-products.html">Markets</a></li>
+          <li><a href="product-paper-bags.html">Paper Bags</a></li>
+          <li><a href="product-packaging-boxes.html">Packaging Boxes</a></li>
+        </ul>
+      </li>
 
-    <a href="locations.html">Locations</a>
-    <a href="contact.html" class="contact-btn">Contact</a>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="contact.html" class="contact-btn">Contact</a></li>
+    </ul>
   </nav>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
     }
 
     header {
       background: white;
-      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
     }
 
     .logo img {
@@ -71,33 +74,27 @@
     }
 
     nav {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      margin-top: 10px;
+      background: white;
     }
 
-    nav a {
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 10px 20px;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
       text-decoration: none;
       color: #0d47a1;
       font-weight: 600;
       font-size: 16px;
-      position: relative;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #0d47a1;
-      bottom: -4px;
-      left: 0;
-      transition: 0.3s;
-    }
-
-    nav a:hover::after {
-      width: 100%;
+      display: block;
+      padding: 8px 0;
     }
 
     .contact-btn {
@@ -107,33 +104,28 @@
       border-radius: 5px;
     }
 
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
+    .submenu {
       display: none;
       position: absolute;
-      background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      min-width: 200px;
-      top: 100%;
+      top: 35px;
       left: 0;
-      z-index: 10;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 0;
+      z-index: 100;
     }
 
-    .dropdown-content a {
-      display: block;
+    .submenu li {
+      width: 200px;
+    }
+
+    .submenu li a {
       padding: 10px 16px;
       color: #333;
     }
 
-    .dropdown-content a:hover {
-      background-color: #f5f5f5;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
+    .submenu li a:hover {
+      background: #f0f0f0;
     }
 
     /* Mobile Styles */
@@ -144,43 +136,40 @@
 
       nav {
         display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        background: white;
-        padding: 15px 20px;
-        width: 100%;
-        margin-top: 10px;
       }
 
       nav.show {
-        display: flex;
-      }
-
-      .dropdown:hover .dropdown-content {
-        display: none;
-      }
-
-      .dropdown.open .dropdown-content {
         display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+        padding: 10px 20px;
+      }
+
+      .submenu {
         position: static;
         box-shadow: none;
-        padding-left: 10px;
+        width: 100%;
+      }
+
+      .submenu li a {
+        padding-left: 25px;
       }
     }
   </style>
 
   <script>
-    function toggleMobileMenu() {
-      const nav = document.getElementById("navbar");
-      nav.classList.toggle("show");
-    }
+    // Show/hide mobile nav
+    document.getElementById("hamburger").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("show");
+    });
 
-    function toggleDropdown(event) {
-      if (window.innerWidth <= 768) {
-        event.preventDefault();
-        const dropdown = event.target.parentElement;
-        dropdown.classList.toggle("open");
-      }
+    // Show/hide submenus
+    function toggleDropdown(event, menuId) {
+      event.preventDefault();
+      const submenu = document.getElementById(menuId);
+      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
     }
   </script>
 </header>

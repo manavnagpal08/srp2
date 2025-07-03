@@ -113,13 +113,14 @@
  <!-- Use this for product pages -->
 <div id="header-placeholder"></div>
 <script>
-  fetch("header-products.html")
+  fetch("header.html")
     .then(res => res.text())
     .then(data => {
       document.getElementById("header-placeholder").innerHTML = data;
-      const temp = document.createElement("div");
-      temp.innerHTML = data;
-      temp.querySelectorAll("script").forEach(oldScript => {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = data;
+      const scripts = tempDiv.querySelectorAll("script");
+      scripts.forEach(oldScript => {
         const newScript = document.createElement("script");
         if (oldScript.src) newScript.src = oldScript.src;
         else newScript.textContent = oldScript.textContent;
@@ -127,6 +128,7 @@
       });
     });
 </script>
+
 
 
   <section class="hero">

@@ -2,122 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Flip & Clip</title>
+  <title>Shree Ram Packers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
-
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
       background-color: #f5f7fa;
       color: #333;
-      line-height: 1.6;
     }
-
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
     #bg-video {
       position: absolute;
       top: 0;
       left: 0;
       min-width: 100%;
       min-height: 100%;
-      object-fit: cover;
       z-index: -1;
+      object-fit: cover;
     }
-
-    .hero {
+    .hero-text {
       position: relative;
-      height: 90vh;
+      height: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       padding: 0 20px;
+      text-align: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.4);
     }
-
-    .hero-text {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 40px;
-      border-radius: 12px;
-      color: #fff;
-      max-width: 700px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
     .hero-text h1 {
-      font-size: 36px;
-      margin-bottom: 15px;
+      font-size: 42px;
+      margin-bottom: 10px;
     }
-
     .hero-text p {
       font-size: 18px;
+      max-width: 700px;
     }
 
     .cards-section {
-      max-width: 1200px;
-      margin: 60px auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
-      padding: 0 20px;
+      padding: 60px 30px;
+      max-width: 1200px;
+      margin: auto;
     }
-
     .card {
-      background: #fff;
-      padding: 25px;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: transform 0.3s ease;
     }
-
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+      transform: translateY(-5px);
     }
-
     .card h4 {
       font-size: 14px;
-      color: #d60000;
+      color: #888;
       margin-bottom: 8px;
-      font-weight: 600;
     }
-
     .card h3 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       color: #0d47a1;
     }
-
     .card p {
       font-size: 15px;
-      color: #444;
-      margin-bottom: 15px;
+      color: #555;
+      line-height: 1.6;
     }
-
     .card a {
-      color: #0d47a1;
+      display: inline-block;
+      margin-top: 15px;
+      color: #d60000;
       text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
+      font-weight: 500;
     }
 
-    .card a:hover {
-      color: #d60000;
+    footer {
+      text-align: center;
+      background: #0d47a1;
+      color: white;
+      padding: 20px;
+      margin-top: 40px;
     }
 
     @media (max-width: 768px) {
-      .hero-text {
-        padding: 25px;
-      }
-
       .hero-text h1 {
         font-size: 28px;
       }
-
       .hero-text p {
         font-size: 16px;
       }
@@ -126,7 +112,7 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Load Header -->
   <div id="header-placeholder"></div>
   <script>
     fetch("header.html")
@@ -144,25 +130,31 @@
     </video>
     <div class="hero-text">
       <h1>Smart, Sustainable Packaging for Tomorrow</h1>
-      <p>We combine innovation and responsibility to deliver packaging that powers your brand and protects the planet.</p>
+      <p>At Shree Ram Packers, we combine innovation and responsibility to deliver packaging that powers your brand and protects the planet.</p>
     </div>
   </section>
 
-  <!-- News & Innovation Cards -->
+  <!-- News & Innovation Section -->
   <section class="cards-section">
     <div class="card">
-      <h4>NEWS AND EVENTS</h4>
-      <h3>Parksons-MK Printpack Announcement</h3>
-      <p>Warburg Pincus backed Parksons Packaging, a leading paper packaging company in India, today announced that…</p>
-      <a href="#">Read more</a>
+      <h4>COMPANY NEWS</h4>
+      <h3>Shree Ram Packers Launches New Eco Product Line</h3>
+      <p>We've introduced a new range of recyclable paper bags and compostable boxes designed to reduce environmental impact without compromising quality.</p>
+      <a href="sustainability.html">Explore Sustainability</a>
     </div>
+
     <div class="card">
-      <h4>INNOVATION AND TECHNOLOGY</h4>
-      <h3>Smart Solutions for Business Success</h3>
-      <p>We provide innovative packaging solutions that help our customers’ brands advance.</p>
-      <a href="#">Read more</a>
+      <h4>CLIENT IMPACT</h4>
+      <h3>Packaging for Global Export</h3>
+      <p>Our corrugated and rigid boxes are now being used by international clients across Europe and Southeast Asia. Proud to support Make in India.</p>
+      <a href="product-packaging-boxes.html">View Our Boxes</a>
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
 
 </body>
 </html>

@@ -11,31 +11,51 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      background-color: #f9fafc;
       color: #333;
     }
 
     .hero {
-      background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
-                  url('sustainability-banner.jpg') center center / cover no-repeat;
-      color: white;
-      padding: 60px 30px;
-      text-align: left;
-      height: 35vh;
+      position: relative;
+      background: url('sustainability-banner.jpg') center/cover no-repeat;
+      height: 45vh;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+
+    .hero .content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
     }
 
     .hero h1 {
-      font-size: 36px;
+      font-size: 42px;
       margin-bottom: 10px;
+      animation: fadeInUp 1s ease;
     }
 
     .hero p {
-      font-size: 16px;
-      max-width: 600px;
-      line-height: 1.5;
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .container {
@@ -44,11 +64,21 @@
       padding: 0 20px;
     }
 
-    .container h2 {
-      font-size: 28px;
-      color: #0d47a1;
+    .section-title {
       text-align: center;
+      font-size: 32px;
+      color: #0d47a1;
       margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      width: 60px;
+      height: 3px;
+      background: #0d47a1;
+      display: block;
+      margin: 10px auto 0;
     }
 
     .card-grid {
@@ -58,17 +88,17 @@
     }
 
     .card {
-      background: white;
+      background: #fff;
       padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
       text-align: center;
       transition: 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
     .card i {
@@ -79,37 +109,43 @@
 
     .card h3 {
       font-size: 20px;
-      margin-bottom: 8px;
       color: #0d47a1;
+      margin-bottom: 10px;
     }
 
     .card p {
       font-size: 15px;
       color: #555;
+      line-height: 1.6;
     }
 
     .cta {
-      background: #0d47a1;
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
       color: white;
       text-align: center;
-      padding: 50px 30px;
-      margin-top: 60px;
+      padding: 60px 30px;
+      margin-top: 80px;
     }
 
     .cta h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 30px;
+      margin-bottom: 15px;
     }
 
     .cta a {
       background: white;
       color: #0d47a1;
+      padding: 12px 28px;
       text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 6px;
       font-weight: 600;
+      border-radius: 8px;
+      margin-top: 20px;
       display: inline-block;
-      margin-top: 15px;
+      transition: 0.3s;
+    }
+
+    .cta a:hover {
+      background: #f0f0f0;
     }
 
     footer {
@@ -121,24 +157,23 @@
     }
 
     @media (max-width: 768px) {
-      .hero {
-        height: 35vh;
-        padding: 40px 20px;
-      }
-
       .hero h1 {
-        font-size: 28px;
+        font-size: 30px;
       }
 
       .hero p {
-        font-size: 15px;
+        font-size: 16px;
+      }
+
+      .cta h2 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header Load -->
+  <!-- Header -->
   <div id="header-placeholder"></div>
   <script>
     fetch("header.html")
@@ -148,54 +183,56 @@
       });
   </script>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
-    <h1>Sustainability</h1>
-    <p>At Shree Ram Packers, our commitment to sustainability drives every decision — from eco-materials to energy efficiency.</p>
+    <div class="content">
+      <h1>Sustainability</h1>
+      <p>At Shree Ram Packers, we design every process and product to contribute toward a cleaner, greener future.</p>
+    </div>
   </section>
 
-  <!-- Sustainability Pillars -->
+  <!-- Eco Pillars -->
   <section class="container">
-    <h2>Our Eco Pillars</h2>
+    <h2 class="section-title">Our Eco Pillars</h2>
     <div class="card-grid">
       <div class="card">
         <i class="fas fa-recycle"></i>
         <h3>Eco Materials</h3>
-        <p>Recycled kraft, biodegradable board, and soy-based inks lead our material choices.</p>
+        <p>We use recycled kraft, biodegradable board, and safe water-based inks in all our packaging solutions.</p>
       </div>
       <div class="card">
         <i class="fas fa-seedling"></i>
         <h3>Zero Waste</h3>
-        <p>Smart design and recycling reduce raw waste in every production cycle.</p>
+        <p>Our efficient layouts and smart production systems help us eliminate raw material wastage.</p>
       </div>
       <div class="card">
         <i class="fas fa-bolt"></i>
         <h3>Energy Efficient</h3>
-        <p>Low-power equipment and intelligent layouts reduce factory emissions.</p>
+        <p>We run energy-optimized machines and reduce overall factory consumption with smart tech integration.</p>
       </div>
       <div class="card">
-        <i class="fas fa-hands-helping"></i>
+        <i class="fas fa-hand-holding-heart"></i>
         <h3>Green Innovation</h3>
-        <p>We're developing plant-based and compostable packaging alternatives.</p>
+        <p>We actively explore sustainable packaging alternatives for tomorrow’s environment challenges.</p>
       </div>
       <div class="card">
         <i class="fas fa-leaf"></i>
-        <h3>Reusable Products</h3>
-        <p>Durable paper bags and reusable wraps support long-term eco goals.</p>
+        <h3>Reusable Solutions</h3>
+        <p>Our bags and boxes are designed to be reused and recycled—reducing the need for single-use waste.</p>
       </div>
       <div class="card">
         <i class="fas fa-chalkboard-teacher"></i>
-        <h3>Client Education</h3>
-        <p>We provide sustainability guidance to help our clients make smart packaging choices.</p>
+        <h3>Client Guidance</h3>
+        <p>We help clients adopt more sustainable practices through packaging education and lifecycle consulting.</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
+  <!-- CTA -->
   <section class="cta">
-    <h2>Partner for a Greener Tomorrow</h2>
-    <p>Let’s make packaging cleaner, smarter, and more sustainable — together.</p>
-    <a href="contact.html">Contact Us</a>
+    <h2>Let’s Build a Greener Future Together</h2>
+    <p>Collaborate with us to create packaging that doesn’t just protect products — it protects the planet.</p>
+    <a href="contact.html">Talk to Us</a>
   </section>
 
   <!-- Footer -->

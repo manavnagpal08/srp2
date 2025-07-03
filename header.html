@@ -2,7 +2,11 @@
   <div class="logo">
     <img src="logo.png" alt="Shree Ram Packers" height="50" />
   </div>
-  <nav>
+
+  <!-- Hamburger Menu Button -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <nav id="navbar">
     <a href="index.html">Home</a>
 
     <!-- About Dropdown -->
@@ -17,8 +21,7 @@
 
     <a href="innovation-technology.html">Innovation and Technology</a>
 
-
-    <!-- SINGLE Dropdown: Markets & Products -->
+    <!-- Products Dropdown -->
     <div class="dropdown">
       <a href="#">Markets & Products ▾</a>
       <div class="dropdown-content">
@@ -33,6 +36,10 @@
   </nav>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     header {
       background: white;
       padding: 15px 30px;
@@ -45,6 +52,10 @@
       z-index: 1000;
     }
 
+    .logo img {
+      max-height: 50px;
+    }
+
     nav {
       display: flex;
       align-items: center;
@@ -53,8 +64,10 @@
 
     nav a {
       text-decoration: none;
-      color: #333;
-      font-weight: 500;
+      color: #0d47a1;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
       position: relative;
     }
 
@@ -72,13 +85,6 @@
     nav a:hover::after {
       width: 100%;
     }
-    nav a {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  color: #0d47a1; /* dark blue color */
-}
-
 
     .contact-btn {
       background: #d60000;
@@ -116,5 +122,67 @@
     .dropdown:hover .dropdown-content {
       display: block;
     }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 15px 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: none;
+      }
+
+      .dropdown > a::after {
+        content: ' ▾';
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        padding-left: 10px;
+      }
+
+      .dropdown.open .dropdown-content {
+        display: block;
+      }
+    }
   </style>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navbar").classList.toggle("show");
+    }
+
+    // For dropdowns in mobile view
+    document.querySelectorAll(".dropdown > a").forEach(link => {
+      link.addEventListener("click", function (e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          this.parentElement.classList.toggle("open");
+        }
+      });
+    });
+  </script>
 </header>

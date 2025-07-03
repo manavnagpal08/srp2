@@ -28,7 +28,7 @@
     .hero {
       height: 60vh;
       background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), 
-                  url('company-building.png') no-repeat center center/cover;
+                  url('assets/company-building.png') no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -143,33 +143,15 @@
 </head>
 <body>
 
-  <!-- Header Placeholder -->
-  <!-- Use this for non-product pages -->
-<div id="header-placeholder"></div>
-<script>
-  fetch("header.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-
-      // Inject any inline script inside the header
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = data;
-      const scripts = tempDiv.querySelectorAll("script");
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) {
-          newScript.src = oldScript.src;
-        } else {
-          newScript.textContent = oldScript.textContent;
-        }
-        document.body.appendChild(newScript);
+  <!-- Header Load -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
       });
-    });
-</script>
-
-
-
+  </script>
 
   <!-- Hero Section -->
   <section class="hero" data-aos="fade-up">
@@ -218,7 +200,7 @@
     &copy; 2025 Shree Ram Packers. All rights reserved.
   </footer>
 
-  <!-- AOS Animation -->
+  <!-- AOS Script -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init();</script>
 

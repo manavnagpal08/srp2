@@ -17,7 +17,7 @@
 
     .hero {
       background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
-                  url('sustainability-banner.jpg') center center / cover no-repeat;
+                  url('assets/sustainability-banner.jpg') center center / cover no-repeat;
       color: white;
       padding: 60px 30px;
       text-align: left;
@@ -139,28 +139,14 @@
 <body>
 
   <!-- Header Load -->
-  <!-- Use this for non-product pages -->
-<div id="header-placeholder"></div>
-<div id="header-placeholder"></div>
-<script>
-  fetch("header.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = data;
-      const scripts = tempDiv.querySelectorAll("script");
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) newScript.src = oldScript.src;
-        else newScript.textContent = oldScript.textContent;
-        document.body.appendChild(newScript);
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
       });
-    });
-</script>
-
-
-
+  </script>
 
   <!-- Hero Section -->
   <section class="hero">

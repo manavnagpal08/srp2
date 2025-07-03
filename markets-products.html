@@ -15,7 +15,7 @@
     }
 
     .hero {
-      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('markets-banner.jpg') no-repeat center center/cover;
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('assets/markets-banner.jpg') no-repeat center center/cover;
       color: white;
       padding: 100px 30px;
       text-align: center;
@@ -136,15 +136,6 @@
       .then(res => res.text())
       .then(data => {
         document.getElementById("header-placeholder").innerHTML = data;
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = data;
-        const scripts = tempDiv.querySelectorAll("script");
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement("script");
-          if (oldScript.src) newScript.src = oldScript.src;
-          else newScript.textContent = oldScript.textContent;
-          document.body.appendChild(newScript);
-        });
       });
   </script>
 

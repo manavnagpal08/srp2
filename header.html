@@ -1,69 +1,47 @@
 <header>
-  <div class="header-container">
-    <div class="logo">
-      <a href="index.html"><img src="logo.png" alt="Shree Ram Packers" height="50"></a>
-    </div>
-
-    <!-- Hamburger icon -->
-    <div class="hamburger" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-
-    <!-- Navigation links -->
-    <nav id="nav-menu">
-      <a href="index.html">Home</a>
-
-      <div class="dropdown">
-        <a href="#">About <i class="fas fa-chevron-down"></i></a>
-        <div class="dropdown-content">
-          <a href="company-background.html">Company Background</a>
-          <a href="sustainability.html">Sustainability</a>
-          <a href="certifications.html">Quality & Certifications</a>
-        </div>
-      </div>
-
-      <a href="innovation.html">Innovation & Technology</a>
-
-      <div class="dropdown">
-        <a href="#">Markets & Products <i class="fas fa-chevron-down"></i></a>
-        <div class="dropdown-content">
-          <a href="markets-products.html">Markets</a>
-          <a href="product-paper-bags.html">Paper Bags</a>
-          <a href="product-packaging-boxes.html">Packaging Boxes</a>
-        </div>
-      </div>
-
-      <a href="locations.html">Locations</a>
-      <a href="contact.html" class="contact-btn">Contact</a>
-    </nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="Shree Ram Packers" height="50" />
   </div>
+  <nav>
+    <a href="index.html">Home</a>
 
-  <!-- Header Styles -->
+    <!-- About Dropdown -->
+    <div class="dropdown">
+      <a href="#">About ▾</a>
+      <div class="dropdown-content">
+        <a href="company-background.html">Company Background</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="certifications.html">Quality & Certifications</a>
+      </div>
+    </div>
+
+    <a href="#">Innovation and Technology</a>
+
+    <!-- SINGLE Dropdown: Markets & Products -->
+    <div class="dropdown">
+      <a href="#">Markets & Products ▾</a>
+      <div class="dropdown-content">
+        <a href="markets-products.html">Markets</a>
+        <a href="product-paper-bags.html">Paper Bags</a>
+        <a href="product-packaging-boxes.html">Packaging Boxes</a>
+      </div>
+    </div>
+
+    <a href="locations.html">Locations</a>
+    <a href="contact.html" class="contact-btn">Contact</a>
+  </nav>
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     header {
       background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      width: 100%;
-    }
-
-    .header-container {
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 24px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .logo img {
-      height: 50px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     nav {
@@ -73,27 +51,21 @@
     }
 
     nav a {
-      color: #333;
       text-decoration: none;
+      color: #333;
       font-weight: 500;
       position: relative;
-      padding: 8px;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #0d47a1;
     }
 
     nav a::after {
       content: '';
       position: absolute;
-      width: 0%;
+      width: 0;
       height: 2px;
       background: #0d47a1;
-      bottom: 0;
+      bottom: -4px;
       left: 0;
-      transition: width 0.3s ease;
+      transition: 0.3s;
     }
 
     nav a:hover::after {
@@ -102,8 +74,8 @@
 
     .contact-btn {
       background: #d60000;
-      color: white !important;
-      padding: 8px 16px;
+      color: white;
+      padding: 8px 14px;
       border-radius: 5px;
     }
 
@@ -114,81 +86,27 @@
     .dropdown-content {
       display: none;
       position: absolute;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
       top: 100%;
       left: 0;
-      background: white;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
-      min-width: 200px;
-      z-index: 1000;
+      z-index: 10;
     }
 
     .dropdown-content a {
       display: block;
       padding: 10px 16px;
-      color: #333;
       text-decoration: none;
+      color: #333;
     }
 
     .dropdown-content a:hover {
-      background: #f2f2f2;
+      background-color: #f5f5f5;
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
     }
-
-    .hamburger {
-      display: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        background: white;
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        width: 250px;
-        border-radius: 8px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        padding: 15px 0;
-        z-index: 999;
-      }
-
-      nav.show {
-        display: flex;
-      }
-
-      .dropdown {
-        width: 100%;
-      }
-
-      .dropdown-content {
-        position: relative;
-        box-shadow: none;
-        background: #f9f9f9;
-        border-radius: 0;
-      }
-
-      .dropdown-content a {
-        padding-left: 24px;
-      }
-    }
   </style>
-
-  <!-- Header Script -->
-  <script>
-    function toggleMenu() {
-      document.getElementById('nav-menu').classList.toggle('show');
-    }
-  </script>
 </header>

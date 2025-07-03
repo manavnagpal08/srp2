@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <title>Paper Bags | Shree Ram Packers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f5f7fa;
+      background-color: #f8f9fa;
       color: #333;
     }
 
+    #header-placeholder {
+      margin-bottom: 30px;
+    }
+
     .hero {
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)),
-        url('bag.jpg') no-repeat center center/cover;
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
+        url('assets/bag.jpg') no-repeat center center/cover;
       padding: 100px 30px;
       color: white;
       text-align: center;
@@ -35,7 +39,7 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 50px auto;
       padding: 0 20px;
       animation: slideInUp 1s ease-in-out;
@@ -43,28 +47,30 @@
 
     .bag-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
     }
 
     .bag-card {
       background: white;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
       transition: all 0.4s ease;
       overflow: hidden;
       cursor: pointer;
+      transform: scale(1);
     }
 
     .bag-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
     }
 
     .bag-card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
+      transition: 0.4s;
     }
 
     .bag-card h3 {
@@ -76,8 +82,8 @@
     .bag-card p {
       margin: 0 15px 15px;
       font-size: 15px;
-      color: #555;
       display: none;
+      color: #555;
     }
 
     .bag-card.open p {
@@ -88,7 +94,7 @@
       text-align: center;
       margin-top: 50px;
       padding: 40px 20px;
-      background: linear-gradient(to bottom, #ffffff, #f1f5ff);
+      background: linear-gradient(to bottom, #fff, #f0f4ff);
       border-top: 1px solid #ccc;
       animation: fadeIn 1.5s ease-in-out;
     }
@@ -126,24 +132,15 @@
   </style>
 </head>
 <body>
-  <!-- Use this for product pages -->
-<div id="header-placeholder"></div>
-<script>
-  fetch("header-products.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-      const temp = document.createElement("div");
-      temp.innerHTML = data;
-      temp.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) newScript.src = oldScript.src;
-        else newScript.textContent = oldScript.textContent;
-        document.body.appendChild(newScript);
-      });
-    });
-</script>
 
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
 
   <section class="hero">
     <h1>Paper Bags</h1>
@@ -171,9 +168,10 @@
     }
   </script>
 
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDX1ignbVqrw138rEcoxozFgFqGsCKmWok",

@@ -20,7 +20,7 @@
     /* Hero Section */
     .hero {
   background: linear-gradient(to right, rgba(13, 71, 161, 0.8), rgba(0, 0, 0, 0.4)), 
-              url('location-banner.jpg') center center/cover no-repeat;
+              url('assets/location-banner.jpg') center center/cover no-repeat;
   color: white;
   text-align: center;
   height: 300px; /* ⬅️ adjust this height as needed */
@@ -138,22 +138,13 @@
 
   <!-- Load reusable header -->
   <div id="header-placeholder"></div>
-<script>
-  fetch("header.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = data;
-      const scripts = tempDiv.querySelectorAll("script");
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) newScript.src = oldScript.src;
-        else newScript.textContent = oldScript.textContent;
-        document.body.appendChild(newScript);
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
       });
-    });
-</script>
+  </script>
 
   <!-- Hero Section -->
   <section class="hero" data-aos="fade-up">

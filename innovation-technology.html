@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Innovation & Technology | Shree Ram Packers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    #header-placeholder {
+      margin-bottom: 30px;
+    }
+
+    .hero {
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3)),
+        url('assets/innovation-hero.jpg') center center / cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 100px 30px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      color: #0d47a1;
+      margin-bottom: 50px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .card i {
+      font-size: 36px;
+      color: #0d47a1;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #0d47a1;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .tech-section {
+      background: #eef4f9;
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .tech-section h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #0d47a1;
+    }
+
+    .tech-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .tech-logos img {
+      height: 60px;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .tech-logos img:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 60px 0;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 160px;
+      padding: 20px;
+    }
+
+    .stat h3 {
+      font-size: 36px;
+      color: #0d47a1;
+      margin-bottom: 5px;
+    }
+
+    .stat p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    footer {
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+      });
+  </script>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Innovation & Technology</h1>
+    <p>Empowering packaging with precision, automation, and a passion for improvement.</p>
+  </section>
+
+  <!-- Innovation Pillars -->
+  <section class="container">
+    <h2 class="section-title">Where We Innovate</h2>
+    <div class="card-grid">
+      <div class="card">
+        <i class="fas fa-cogs"></i>
+        <h3>Smart Automation</h3>
+        <p>Using modern die-cutters, gluing machines, and finishing tools for consistent results at scale.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-ruler-combined"></i>
+        <h3>Precision Engineering</h3>
+        <p>Every fold, cut, and crease is optimized using calibrated systems and lean production methods.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Design Intelligence</h3>
+        <p>Our team ensures each package is optimized for space, durability, and consumer impact.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-recycle"></i>
+        <h3>Eco Optimization</h3>
+        <p>Wastage is minimized through intelligent layout planning and smart raw material usage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Tools -->
+  <section class="tech-section">
+    <h2>Technologies & Tools We Use</h2>
+    <div class="tech-logos">
+      <img src="assets/machine1.png" alt="Die Cutting Machine" title="Die Cutting">
+      <img src="assets/machine2.png" alt="Gluing Machine" title="Folding & Gluing">
+      <img src="assets/machine3.png" alt="Offset Printer" title="Offset Printing">
+      <img src="assets/machine4.png" alt="Laminator" title="Lamination Machine">
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="container stats">
+    <div class="stat">
+      <h3>99.2%</h3>
+      <p>Production Accuracy</p>
+    </div>
+    <div class="stat">
+      <h3>12+</h3>
+      <p>Types of Packaging Machinery</p>
+    </div>
+    <div class="stat">
+      <h3>20+</h3>
+      <p>Years of Operational Experience</p>
+    </div>
+    <div class="stat">
+      <h3>85%</h3>
+      <p>Material Waste Reduction</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Shree Ram Packers. All rights reserved.
+  </footer>
+
+</body>
+</html>

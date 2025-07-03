@@ -1,18 +1,18 @@
 <header class="srp-header">
-  <div class="srp-container">
+  <div class="srp-header-top">
     <div class="srp-logo">
       <img src="logo.png" alt="Shree Ram Packers" />
     </div>
-    <div class="srp-hamburger" onclick="toggleSrpMenu()">☰</div>
+    <div class="srp-hamburger" onclick="toggleSrpNav()">☰</div>
   </div>
 
-  <nav class="srp-nav" id="srpNav">
+  <nav id="srp-navbar">
     <ul>
       <li><a href="index.html">Home</a></li>
 
       <li class="srp-dropdown">
-        <a href="#" onclick="toggleSrpDropdown(event, 'aboutDrop')">About ▾</a>
-        <ul class="srp-dropdown-content" id="aboutDrop">
+        <a href="#" onclick="toggleDropdown(event, 'about')">About ▾</a>
+        <ul class="srp-dropdown-content" id="about">
           <li><a href="company-background.html">Company Background</a></li>
           <li><a href="sustainability.html">Sustainability</a></li>
           <li><a href="certifications.html">Quality & Certifications</a></li>
@@ -22,8 +22,8 @@
       <li><a href="innovation-technology.html">Innovation & Technology</a></li>
 
       <li class="srp-dropdown">
-        <a href="#" onclick="toggleSrpDropdown(event, 'productDrop')">Markets & Products ▾</a>
-        <ul class="srp-dropdown-content" id="productDrop">
+        <a href="#" onclick="toggleDropdown(event, 'products')">Markets & Products ▾</a>
+        <ul class="srp-dropdown-content" id="products">
           <li><a href="markets-products.html">Markets</a></li>
           <li><a href="product-paper-bags.html">Paper Bags</a></li>
           <li><a href="product-packaging-boxes.html">Packaging Boxes</a></li>
@@ -37,18 +37,17 @@
 
   <style>
     .srp-header {
+      position: relative;
+      z-index: 9999;
       background: white;
-      padding: 12px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 10000;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .srp-container {
+    .srp-header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
     }
 
     .srp-logo img {
@@ -61,30 +60,29 @@
       display: none;
     }
 
-    .srp-nav {
-      display: flex;
-      justify-content: flex-end;
+    #srp-navbar {
+      background: white;
+      width: 100%;
     }
 
-    .srp-nav ul {
-      list-style: none;
+    #srp-navbar ul {
       display: flex;
       gap: 20px;
-      padding: 10px 0;
+      list-style: none;
       margin: 0;
+      padding: 10px 20px;
+      flex-wrap: wrap;
     }
 
-    .srp-nav ul li {
+    #srp-navbar li {
       position: relative;
     }
 
-    .srp-nav ul li a {
+    #srp-navbar li a {
       text-decoration: none;
       color: #0d47a1;
       font-weight: 600;
       font-size: 16px;
-      display: block;
-      padding: 8px 0;
     }
 
     .srp-contact-btn {
@@ -99,12 +97,11 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 9999;
+      background: white;
+      z-index: 10000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       list-style: none;
       min-width: 200px;
-      padding: 0;
     }
 
     .srp-dropdown-content li a {
@@ -113,58 +110,46 @@
       color: #333;
     }
 
-    .srp-dropdown-content li a:hover {
-      background: #f0f0f0;
-    }
-
     .srp-dropdown.open .srp-dropdown-content {
       display: block;
     }
 
-    /* Mobile */
+    /* Mobile Fixes */
     @media (max-width: 768px) {
       .srp-hamburger {
         display: block;
       }
 
-      .srp-nav {
+      #srp-navbar {
         display: none;
         flex-direction: column;
-        width: 100%;
       }
 
-      .srp-nav.show {
+      #srp-navbar.show {
         display: flex;
       }
 
-      .srp-nav ul {
+      #srp-navbar ul {
         flex-direction: column;
         gap: 0;
       }
 
-      .srp-nav ul li a {
-        padding: 12px 20px;
-      }
-
       .srp-dropdown-content {
         position: static;
+        background: #f9f9f9;
         box-shadow: none;
-        background: #f8f8f8;
-      }
-
-      .srp-dropdown-content li a {
-        padding-left: 30px;
+        padding-left: 15px;
       }
     }
   </style>
 
   <script>
-    function toggleSrpMenu() {
-      document.getElementById("srpNav").classList.toggle("show");
+    function toggleSrpNav() {
+      document.getElementById("srp-navbar").classList.toggle("show");
     }
 
-    function toggleSrpDropdown(event, id) {
-      event.preventDefault();
+    function toggleDropdown(e, id) {
+      e.preventDefault();
       document.getElementById(id).parentElement.classList.toggle("open");
     }
   </script>

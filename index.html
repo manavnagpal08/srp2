@@ -8,10 +8,11 @@
   <style>
     body {
       margin: 0;
-      padding-top: 100px; /* make space for sticky header */
+      padding-top: 100px; /* makes space for sticky header */
       font-family: 'Poppins', sans-serif;
     }
 
+    /* === HEADER STYLES === */
     header.srp-header {
       background: white;
       padding: 15px 20px;
@@ -19,7 +20,7 @@
       top: 0;
       width: 100%;
       z-index: 9999;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .srp-header-container {
@@ -45,7 +46,7 @@
       flex-wrap: wrap;
     }
 
-    .srp-nav a {
+    nav.srp-nav a {
       text-decoration: none;
       color: #0d47a1;
       font-weight: 600;
@@ -59,7 +60,7 @@
       border-radius: 5px;
     }
 
-    /* Mobile */
+    /* === MOBILE MENU STYLES === */
     @media (max-width: 768px) {
       .srp-hamburger {
         display: block;
@@ -69,6 +70,9 @@
         display: none;
         flex-direction: column;
         width: 100%;
+        background: white;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
       }
 
       nav.srp-nav.show {
@@ -76,14 +80,16 @@
       }
 
       nav.srp-nav a {
-        padding: 10px 0;
+        padding: 12px 20px;
+        border-top: 1px solid #eee;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Inline working header -->
+  <!-- ✅ Sticky Responsive Header -->
   <header class="srp-header">
     <div class="srp-header-container">
       <div class="srp-logo">
@@ -111,10 +117,10 @@
     }
   </script>
 
-  <!-- ✅ Content starts here -->
+  <!-- ✅ Main Page Content -->
   <main style="padding: 20px;">
     <h1>Welcome to Shree Ram Packers</h1>
-    <p>This is your homepage content.</p>
+    <p>This is your homepage content. Update this section as you like.</p>
   </main>
 
 </body>

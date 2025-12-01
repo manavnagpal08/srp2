@@ -2,161 +2,233 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Order Tracking – Shree Ram Packers</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order - Shree Ram Packers</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* Custom Styles for aesthetics */
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f7fa;
-  padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%); /* Soft blue-to-white gradient */
 }
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+.card-glass {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
-input {
-  width: 100%;
-  padding: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
+#orderInput:focus {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4); /* Stronger blue focus ring */
 }
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 14px;
-  background: #0d47a1;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px;
+.status-chip {
+    transition: all 0.3s ease-in-out;
 }
-#result {
-  margin-top: 20px;
-  padding: 18px;
-  background: #e3f2fd;
-  border-radius: 8px;
+.status-chip:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center p-6 text-gray-800">
 
-<div class="container">
-  <h2>📦 Track Your Order</h2>
-  <p>Enter order ID or scan QR code.</p>
+<div class="container card-glass p-10 rounded-3xl w-full max-w-lg transition-all duration-300 hover:shadow-xl">
+    <h2 class="text-4xl font-extrabold text-blue-800 mb-3 flex items-center">
+        <span class="mr-4 text-5xl transform rotate-12 transition-transform duration-500 hover:rotate-0">📦</span>
+        Order Tracker
+    </h2>
+    <p class="text-gray-600 mb-8 border-b border-gray-200 pb-5 text-lg">
+        Effortlessly track your package. Scan a QR code or enter your ID below.
+    </p>
 
-  <input id="orderInput" placeholder="Enter Order ID (e.g., SRP015)">
-  <button id="trackBtn">Track</button>
+    <input id="orderInput" 
+           placeholder="Enter your Order ID (e.g., SRP015)" 
+           class="w-full p-4 border-2 border-blue-300 rounded-xl focus:outline-none focus:border-blue-500 bg-white bg-opacity-70 mb-5 text-lg transition-all duration-300 hover:border-blue-400">
+    
+    <button id="trackButton" 
+            class="w-full p-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl text-xl tracking-wide 
+                   transition duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-blue-300">
+        Track My Order
+    </button>
 
-  <div id="result"></div>
+    <div id="result" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-2xl text-gray-700 transition duration-500 ease-in-out fade-in min-h-[150px] flex items-center justify-center text-center text-lg">
+        <p class="text-gray-500">Enter an Order ID above to see the live status.</p>
+    </div>
 </div>
 
 <script type="module">
 
-// ----------------------
+// ------------------------------------
 // FIREBASE IMPORTS
-// ----------------------
-import { initializeApp }
+// ------------------------------------
+import { initializeApp } 
 from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-
 import { getDatabase, ref, get }
 from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
 
-// ----------------------
-// FIXED FIREBASE CONFIG
-// ----------------------
+// ------------------------------------
+// FIREBASE CONFIG
+// ------------------------------------
 const firebaseConfig = {
-  apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
-  authDomain: "omss-2ccc6.firebaseapp.com",
-  databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com",   <!-- FIXED ✔ -->
-  projectId: "omss-2ccc6",
-  storageBucket: "omss-2ccc6.firebasestorage.app",
-  messagingSenderId: "24897633074",
-  appId: "1:24897633074:web:ddbf44965e91b17a1db52b"
+    apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
+    authDomain: "omss-2ccc6.firebaseapp.com",
+    databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com", 
+    projectId: "omss-2ccc6",
+    storageBucket: "omss-2ccc6.firebasestorage.app",
+    messagingSenderId: "24897633074",
+    appId: "1:24897633074:web:ddbf44965e91b17a1db52b",
+    measurementId: "G-D1GBGQQJS2"
 };
 
 
-// ----------------------
-// INIT FIREBASE
-// ----------------------
+// ------------------------------------
+// INITIALIZE FIREBASE
+// ------------------------------------
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const db = getDatabase(app); 
 
 
-// ----------------------
-// AUTO FILL FROM URL
-// ----------------------
+/**
+ * Renders a visually enhanced, color-coded status chip based on the order stage.
+ * @param {string} stage - The current stage of the order.
+ * @returns {string} HTML string for the status chip.
+ */
+function renderStatus(stage) {
+    let colorClasses;
+    let icon;
+    
+    const normalizedStage = stage.toLowerCase().trim();
+
+    if (normalizedStage.includes('delivered') || normalizedStage.includes('completed')) {
+        colorClasses = 'bg-green-100 text-green-800 ring-green-300';
+        icon = '✅';
+    } else if (normalizedStage.includes('transit') || normalizedStage.includes('shipped') || normalizedStage.includes('out for delivery')) {
+        colorClasses = 'bg-blue-100 text-blue-800 ring-blue-300 animate-pulse';
+        icon = '🚚';
+    } else if (normalizedStage.includes('processing') || normalizedStage.includes('packed') || normalizedStage.includes('production') || normalizedStage.includes('design')) {
+        colorClasses = 'bg-yellow-100 text-yellow-800 ring-yellow-300';
+        icon = '🛠️';
+    } else if (normalizedStage.includes('cancelled') || normalizedStage.includes('returned')) {
+        colorClasses = 'bg-red-100 text-red-800 ring-red-300';
+        icon = '❌';
+    } else {
+        colorClasses = 'bg-gray-100 text-gray-800 ring-gray-300';
+        icon = '❓';
+    }
+
+    return `<span class="status-chip inline-flex items-center px-5 py-2.5 text-lg font-extrabold rounded-full ${colorClasses} ring-2 shadow-md transition-all duration-300 ease-in-out">${icon} ${stage.toUpperCase()}</span>`;
+}
+
+
+// ------------------------------------
+// TRACK ORDER FUNCTION
+// ------------------------------------
+async function trackOrder() {
+    const oid = document.getElementById("orderInput").value.trim();
+    const out = document.getElementById("result");
+
+    if (!oid) {
+        out.innerHTML = "<p class='text-red-600 font-semibold'>Please enter a valid tracking ID to proceed.</p>";
+        return;
+    }
+
+    out.innerHTML = `
+        <div class="flex flex-col items-center justify-center p-4 space-y-3">
+            <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-blue-700 font-medium text-lg">Tracking Order <span class="font-bold">${oid}</span>...</span>
+        </div>`;
+
+    try {
+        const snap = await get(ref(db, "orders"));
+
+        if (!snap.exists()) {
+            out.innerHTML = "<p class='text-red-600 font-bold'>Database connection failure or no orders found.</p>";
+            return;
+        }
+
+        let found = null;
+
+        snap.forEach(child => {
+            if (child.val().order_id === oid) found = child.val();
+        });
+
+        if (!found) {
+            out.innerHTML = `<p class='text-red-600 font-bold'>Order ID <strong>${oid}</strong> not found in our system. Please check the ID and try again.</p>`;
+            return;
+        }
+
+        // Use the advanced status renderer
+        const statusHtml = renderStatus(found.stage);
+
+        // Display results with improved, structured UI and animations
+        out.innerHTML = `
+            <div class="space-y-6 fade-in p-2">
+                <h3 class="text-2xl font-extrabold text-blue-700 border-b-2 border-blue-200 pb-3 mb-4">
+                    Order <span class="text-blue-900">${found.order_id}</span> Status
+                </h3>
+                
+                <!-- Status Chip --><div class="flex justify-center p-3">
+                    ${statusHtml}
+                </div>
+
+                <!-- Details Grid --><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-base bg-white p-5 rounded-xl shadow-md border border-gray-100">
+                    <div><span class="font-semibold text-gray-700">Customer:</span> <span class="text-gray-900 block">${found.customer}</span></div>
+                    <div><span class="font-semibold text-gray-700">Product:</span> <span class="text-gray-900 block">${found.item}</span></div>
+                    <div><span class="font-semibold text-gray-700">Quantity:</span> <span class="text-gray-900 block">${found.qty}</span></div>
+                    <div><span class="font-semibold text-gray-700">Priority:</span> <span class="text-gray-900 block">${found.priority}</span></div>
+                    ${found.received ? `<div><span class="font-semibold text-gray-700">Received On:</span> <span class="text-gray-900 block">${found.received}</span></div>` : ''}
+                    ${found.due ? `<div><span class="font-semibold text-gray-700">Due By:</span> <span class="text-gray-900 block">${found.due}</span></div>` : ''}
+                </div>
+                
+                <p class="text-sm text-gray-500 text-center pt-3 border-t border-gray-100">
+                    Thank you for choosing Shree Ram Packers!
+                </p>
+            </div>
+        `;
+
+    } catch (e) {
+        out.innerHTML = "<p class='text-red-600 font-bold'>An unexpected error occurred. Please refresh and try again.</p>";
+        console.error("Firebase Fetch Error:", e);
+    }
+}
+
+
+// ------------------------------------
+// AUTO TRACKING LOGIC (For QR Scan/URL Parameter)
+// ------------------------------------
 const params = new URLSearchParams(window.location.search);
 const autoID = params.get("id");
 
 if (autoID) {
-  document.getElementById("orderInput").value = autoID;
-  setTimeout(() => trackOrder(), 200);
+    document.getElementById("orderInput").value = autoID;
+    setTimeout(() => trackOrder(), 100); 
 }
 
+// ------------------------------------
+// ATTACH EVENT LISTENER (Manual Click)
+// ------------------------------------
+document.getElementById("trackButton").addEventListener("click", trackOrder);
 
-// ----------------------
-// TRACK ORDER FUNCTION
-// ----------------------
-async function trackOrder() {
-
-  const oid = document.getElementById("orderInput").value.trim();
-  const out = document.getElementById("result");
-
-  if (!oid) {
-    out.innerHTML = "<p style='color:red;'>Enter order ID.</p>";
-    return;
-  }
-
-  out.innerHTML = "⏳ Loading...";
-
-  try {
-    const snap = await get(ref(db, "orders"));
-
-    if (!snap.exists()) {
-      out.innerHTML = "<p style='color:red;'>No orders found.</p>";
-      return;
+// Allow pressing ENTER key in the input field to trigger tracking
+document.getElementById("orderInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); 
+        trackOrder();
     }
-
-    let found = null;
-
-    snap.forEach(child => {
-      if (child.val().order_id === oid) found = child.val();
-    });
-
-    if (!found) {
-      out.innerHTML = "<p style='color:red;'>Order not found.</p>";
-      return;
-    }
-
-    out.innerHTML = `
-      <h3>Order Details</h3>
-      <p><b>Order ID:</b> ${found.order_id}</p>
-      <p><b>Customer:</b> ${found.customer}</p>
-      <p><b>Product:</b> ${found.item}</p>
-      <p><b>Quantity:</b> ${found.qty}</p>
-      <p><b>Status:</b> ${found.stage}</p>
-      <p><b>Priority:</b> ${found.priority}</p>
-    `;
-
-  } catch (e) {
-    console.error(e);
-    out.innerHTML = "<p style='color:red;'>⚠ Error fetching order.</p>";
-  }
-}
-
-
-// ----------------------
-// FIX “not defined” ISSUE
-// ----------------------
-window.trackOrder = trackOrder;
-document.getElementById("trackBtn").onclick = trackOrder;
+});
 
 </script>
 

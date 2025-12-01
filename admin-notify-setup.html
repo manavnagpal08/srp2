@@ -36,26 +36,44 @@ const db = firebase.database();
 
 document.getElementById("enableBtn").onclick = async () => {
     try {
+        console.log("Starting notification enablement process...");
+
         // 1️⃣ Ask notification permission
+        console.log("1️⃣ Requesting notification permission...");
         const permission = await Notification.requestPermission();
+        
         if (permission !== "granted") {
             document.getElementById("status").innerHTML = "❌ Permission denied";
+            console.log("Permission denied by the user.");
             return;
         }
+        console.log("✅ Notification permission granted.");
 
         // 2️⃣ Get FCM token (COMPAT)
+        console.log("2️⃣ Getting FCM token...");
         const token = await messaging.getToken({
             vapidKey: "BNTK8a4dB3TlX0-1mI1tL_6kW-zGvYcOQ8sBq9S5MOmQF2kPELkWfdlZpJmWOxUv1GUuXuONp1MBvOicj9h5QKs"
         });
+        
+        if (token) {
+            console.log("✅ FCM Token received:", token);
+        } else {
+            console.warn("FCM Token was null or undefined.");
+            document.getElementById("status").innerHTML = "❌ Error: Could not retrieve FCM Token.";
+            return;
+        }
 
         // 3️⃣ Save to Firebase Realtime Database
+        console.log("3️⃣ Saving token to Firebase Realtime Database...");
         await db.ref("admin_fcm_token").set(token);
 
+        console.log("✅ Token successfully saved to DB.");
         document.getElementById("status").innerHTML = "✅ Notifications Enabled Successfully!";
 
     } catch (err) {
-        console.error(err);
-        document.getElementById("status").innerHTML = "❌ Error enabling notifications";
+        // Enhanced Error Handling
+        console.error("❌ An error occurred during the process:", err);
+        document.getElementById("status").innerHTML = `❌ Error enabling notifications. Check console for details: **${err.message || err}**`;
     }
 };
 </script>

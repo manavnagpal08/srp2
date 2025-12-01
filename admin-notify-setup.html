@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Enable Admin Notifications</title>
+    <title>Enable Admin Notifications (Debug Mode)</title>
 </head>
 <body style="font-family:Arial;padding:30px;">
 
-<h2>🔔 Enable Admin Notifications</h2>
-<p>This device will receive updates when any order is completed/updated.</p>
+<h2>🔔 Enable Admin Notifications (Debug Mode)</h2>
+<p>This device will receive updates when any order is updated.</p>
 
 <button id="enableBtn"
     style="padding:12px 20px;font-size:16px;background:#1976d2;color:white;border:none;border-radius:6px;cursor:pointer;">
     Enable Notifications
 </button>
 
-<p id="status" style="margin-top:20px;color:green;"></p>
+<p id="status" style="margin-top:20px;color:red;font-weight:bold;"></p>
+<p id="debug" style="margin-top:20px;white-space:pre;font-size:14px;background:#eee;padding:10px;border-radius:8px;"></p>
 
+<!-- Firebase Compat SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <script>
-// SAME CONFIG AS SERVICE WORKER
+function log(msg) {
+    console.log(msg);
+    document.getElementById("debug").innerText += msg + "\n";
+}
+
+// Log initial load
+log("📌 Debug: Page loaded. Initializing Firebase...");
+
+// Firebase init
 firebase.initializeApp({
     apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
     authDomain: "omss-2ccc6.firebaseapp.com",
@@ -31,49 +41,50 @@ firebase.initializeApp({
     appId: "1:24897633074:web:ddbf44965e91b17a1db52b"
 });
 
+log("📌 Firebase initialized successfully.");
+
 const messaging = firebase.messaging();
 const db = firebase.database();
 
 document.getElementById("enableBtn").onclick = async () => {
-    try {
-        console.log("Starting notification enablement process...");
+    log("▶ Button clicked: Starting notification setup...");
 
-        // 1️⃣ Ask notification permission
-        console.log("1️⃣ Requesting notification permission...");
+    try {
+        log("🔹 Requesting notification permission...");
         const permission = await Notification.requestPermission();
-        
+        log("🔹 Permission result: " + permission);
+
         if (permission !== "granted") {
-            document.getElementById("status").innerHTML = "❌ Permission denied";
-            console.log("Permission denied by the user.");
+            document.getElementById("status").innerHTML = "❌ Permission denied by browser.";
+            log("❌ Permission was not granted.");
             return;
         }
-        console.log("✅ Notification permission granted.");
 
-        // 2️⃣ Get FCM token (COMPAT)
-        console.log("2️⃣ Getting FCM token...");
+        log("🔹 Requesting FCM token...");
         const token = await messaging.getToken({
             vapidKey: "BNTK8a4dB3TlX0-1mI1tL_6kW-zGvYcOQ8sBq9S5MOmQF2kPELkWfdlZpJmWOxUv1GUuXuONp1MBvOicj9h5QKs"
         });
-        
-        if (token) {
-            console.log("✅ FCM Token received:", token);
-        } else {
-            console.warn("FCM Token was null or undefined.");
-            document.getElementById("status").innerHTML = "❌ Error: Could not retrieve FCM Token.";
+
+        log("✅ TOKEN RECEIVED:");
+        log(token);
+
+        if (!token) {
+            log("❌ Token is NULL");
+            document.getElementById("status").innerHTML = "❌ Error: Token not generated.";
             return;
         }
 
-        // 3️⃣ Save to Firebase Realtime Database
-        console.log("3️⃣ Saving token to Firebase Realtime Database...");
+        log("🔹 Saving token to Firebase...");
         await db.ref("admin_fcm_token").set(token);
 
-        console.log("✅ Token successfully saved to DB.");
+        log("✅ Token successfully saved!");
         document.getElementById("status").innerHTML = "✅ Notifications Enabled Successfully!";
 
     } catch (err) {
-        // Enhanced Error Handling
-        console.error("❌ An error occurred during the process:", err);
-        document.getElementById("status").innerHTML = `❌ Error enabling notifications. Check console for details: **${err.message || err}**`;
+        console.error(err);
+        log("❌ ERROR OCCURRED:");
+        log(JSON.stringify(err, null, 2));
+        document.getElementById("status").innerHTML = "❌ Error enabling notifications – check debug info below.";
     }
 };
 </script>

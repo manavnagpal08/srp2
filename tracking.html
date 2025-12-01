@@ -2,243 +2,171 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Track Your Order | Shree Ram Packers</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<title>Order Tracking – Shree Ram Packers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background: #f5f7fa;
         margin: 0;
         padding: 0;
-    }
-
-    header {
-        background: white;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    header img {
-        height: 50px;
-    }
-
-    nav {
-        display: flex;
-        gap: 20px;
-    }
-
-    nav a {
-        text-decoration: none;
-        color: #0d47a1;
-        font-weight: 600;
-        position: relative;
-    }
-
-    nav a:hover {
-        color: #d60000;
-    }
-
-    .container {
-        max-width: 650px;
-        margin: 40px auto;
-        padding: 25px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         text-align: center;
     }
 
-    h2 {
+    .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
         font-weight: 600;
         color: #0d47a1;
     }
 
-    #orderInput {
+    input {
         width: 90%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #bbb;
+        padding: 14px;
         font-size: 16px;
-        margin-bottom: 15px;
+        border: 2px solid #d0d0d0;
+        border-radius: 8px;
+        margin-top: 10px;
     }
 
-    #trackBtn {
+    button {
         background: #0d47a1;
         color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
+        padding: 14px 20px;
         font-size: 16px;
-        font-weight: 600;
+        margin-top: 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 95%;
     }
 
-    #trackBtn:hover {
+    button:hover {
         background: #08306b;
     }
 
-    .status-box {
-        margin-top: 30px;
+    .result-box {
+        margin-top: 25px;
+        padding: 20px;
+        background: #f0f4ff;
+        border-left: 5px solid #0d47a1;
+        border-radius: 10px;
         text-align: left;
     }
 
-    .stage {
-        padding: 15px;
-        border-left: 5px solid #ccc;
-        margin-bottom: 15px;
-        background: #f9f9f9;
-        border-radius: 8px;
+    .error {
+        color: red;
+        margin-top: 15px;
+        font-weight: 600;
     }
 
-    .completed {
-        border-left-color: #28a745 !important;
-        background: #e8fbe8 !important;
-    }
-
-    .active {
-        border-left-color: #ffc107 !important;
-        background: #fff7e6 !important;
-    }
-
-    .circle {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        float: right;
-        margin-top: 4px;
-    }
-
-    .done { background: #28a745; }
-    .in-progress { background: #ffc107; }
-    .pending { background: #aaa; }
 </style>
 </head>
 
 <body>
 
-<header>
-    <img src="logo.png" alt="Logo">
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="markets-products.html">Products</a>
-        <a href="contact.html">Contact</a>
-        <a href="tracking.html" style="color:#d60000;">Track Order</a>
-    </nav>
-</header>
-
 <div class="container">
-    <h2>📦 Track Your Order</h2>
-    <p>Enter your Order ID or scan QR code</p>
+    <h1>📦 Track Your Order</h1>
+    <p>Enter your Order ID to check live order status.</p>
 
-    <input type="text" id="orderInput" placeholder="Enter Order ID (e.g., SRP0123)">
-    <button id="trackBtn" onclick="fetchOrder()">Track Order</button>
+    <input id="orderInput" placeholder="Enter Order ID (e.g., SRP-00123)">
+    <button onclick="trackOrder()">Track Order</button>
 
-    <div id="status-box" class="status-box"></div>
+    <div id="output"></div>
 </div>
 
+<!-- FIREBASE SDK -->
+<script type="module">
 
-<script>
-    https://osm-78f8b-default-rtdb.firebaseio.com/orders.json
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+    // Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
+      authDomain: "omss-2ccc6.firebaseapp.com",
+      databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com",
+      projectId: "omss-2ccc6",
+      storageBucket: "omss-2ccc6.firebasestorage.app",
+      messagingSenderId: "24897633074",
+      appId: "1:24897633074:web:ddbf44965e91b17a1db52b",
+      measurementId: "G-D1GBGQQJS2"
+    };
 
-    // ------------ Read Order ID from URL (?id=SRP001) -------------
-    const urlParams = new URLSearchParams(window.location.search);
-    const qrOrderId = urlParams.get("id");
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    if (qrOrderId) {
-        document.getElementById("orderInput").value = qrOrderId;
-        fetchOrder();
-    }
-
-    // ------------- Fetch Order From Firebase -----------------
-    async function fetchOrder() {
-        let orderId = document.getElementById("orderInput").value.trim();
+    // -------- TRACK ORDER FUNCTION ----------
+    window.trackOrder = async function() {
+        const orderId = document.getElementById("orderInput").value.trim();
+        const output = document.getElementById("output");
 
         if (!orderId) {
-            alert("Please enter valid Order ID");
+            output.innerHTML = `<p class='error'>❌ Please enter a valid Order ID.</p>`;
             return;
         }
 
-        document.getElementById("status-box").innerHTML =
-            "<p><b>Fetching latest status...</b></p>";
+        output.innerHTML = "<p>⏳ Fetching order...</p>";
 
         try {
-            const res = await fetch(FIREBASE_URL);
-            const data = await res.json();
+            const ordersRef = ref(db, "orders");
+            const snapshot = await get(ordersRef);
 
-            let found = null;
-            for (let key in data) {
-                if (data[key].order_id === orderId) {
-                    found = data[key];
-                    break;
-                }
-            }
-
-            if (!found) {
-                document.getElementById("status-box").innerHTML =
-                    "<h3 style='color:red;'>❌ Order not found</h3>";
+            if (!snapshot.exists()) {
+                output.innerHTML = `<p class='error'>❌ No orders found in system.</p>`;
                 return;
             }
 
-            renderStatus(found);
+            let found = false;
+            snapshot.forEach(child => {
+                const data = child.val();
+                if (data.order_id === orderId) {
+                    found = true;
+                    displayOrder(data);
+                }
+            });
+
+            if (!found) {
+                output.innerHTML = `<p class='error'>❌ Order ID not found. Check and try again.</p>`;
+            }
 
         } catch (err) {
-            document.getElementById("status-box").innerHTML =
-                "<h3 style='color:red;'>⚠ Unable to fetch data</h3>";
+            output.innerHTML = `<p class='error'>⚠ Error: ${err}</p>`;
         }
     }
 
-    // ------------- Render Nice UI Timeline -----------------
-    function renderStatus(o) {
-        const stages = ["Design", "Printing", "DieCut", "Assembly", "Packing", "Completed"];
+    // -------- DISPLAY ORDER DETAILS ----------
+    function displayOrder(order) {
+        const output = document.getElementById("output");
 
-        let html = `
-            <h3>Order: <b>${o.order_id}</b></h3>
-            <p><b>Customer:</b> ${o.customer}</p>
-            <p><b>Item:</b> ${o.item}</p>
-            <hr>
-            <h3>Status Timeline</h3>
+        output.innerHTML = `
+            <div class="result-box">
+                <h3>Order Details</h3>
+                <p><strong>Order ID:</strong> ${order.order_id}</p>
+                <p><strong>Customer:</strong> ${order.customer}</p>
+                <p><strong>Product:</strong> ${order.item}</p>
+                <p><strong>Quantity:</strong> ${order.qty}</p>
+                <p><strong>Stage:</strong> ${order.stage}</p>
+                <p><strong>Priority:</strong> ${order.priority}</p>
+                <p><strong>Received:</strong> ${order.received}</p>
+                <p><strong>Due Date:</strong> ${order.due}</p>
+            </div>
         `;
-
-        stages.forEach(stage => {
-            let status = "pending";
-            let css = "";
-
-            if (o.stage === stage) {
-                status = "in-progress";
-                css = "active";
-            }
-
-            if (
-                (stage === "Design" && o.design_completed_at) ||
-                (stage === "Printing" && o.printing_completed_at) ||
-                (stage === "DieCut" && o.diecut_completed_at) ||
-                (stage === "Assembly" && o.assembly_completed_at) ||
-                (stage === "Packing" && o.packing_completed_at) ||
-                (stage === "Completed" && o.stage === "Completed")
-            ) {
-                status = "done";
-                css = "completed";
-            }
-
-            html += `
-                <div class="stage ${css}">
-                    <b>${stage}</b>
-                    <div class="circle ${status}"></div>
-                </div>
-            `;
-        });
-
-        document.getElementById("status-box").innerHTML = html;
     }
+
 </script>
 
 </body>

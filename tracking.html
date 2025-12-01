@@ -2,222 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Track Your Order | Shree Ram Packers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Order Tracking - Shree Ram Packers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
 
 <style>
-    /* ---------------- HEADER STYLES ---------------- */
-    header {
-      background: white;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      position: relative;
-    }
-    nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #0d47a1;
-      bottom: -4px;
-      left: 0;
-      transition: 0.3s;
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-    .contact-btn {
-      background: #d60000;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 5px;
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      min-width: 200px;
-      top: 100%;
-      left: 0;
-      z-index: 10;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      text-decoration: none;
-      color: #333;
-    }
-    .dropdown-content a:hover {
-      background-color: #f5f5f5;
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 0;
     }
 
-    /* ---------------- TRACKING STYLES ---------------- */
-    body {
-        font-family: Arial, sans-serif;
-        background: #f7f7f7;
-        margin: 0; padding: 0;
+    header {
+        background: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
     }
+
+    header img {
+        height: 50px;
+    }
+
+    nav {
+        display: flex;
+        gap: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #0d47a1;
+        font-weight: 600;
+        position: relative;
+    }
+
+    nav a:hover {
+        color: #d60000;
+    }
+
     .container {
-        max-width: 600px;
+        max-width: 650px;
         margin: 40px auto;
         padding: 25px;
         background: white;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    h1 {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         text-align: center;
-        color: #2A4DFF;
-        margin-bottom: 20px;
     }
-    .status {
+
+    h2 {
+        font-weight: 600;
+        color: #0d47a1;
+    }
+
+    #orderInput {
+        width: 90%;
         padding: 12px;
-        background: #eef2ff;
-        border-left: 4px solid #2A4DFF;
+        border-radius: 8px;
+        border: 1px solid #bbb;
+        font-size: 16px;
         margin-bottom: 15px;
     }
-    .label {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-    .value {
-        padding: 8px 12px;
-        background: #f0f0f0;
+
+    #trackBtn {
+        background: #0d47a1;
+        color: white;
+        padding: 12px 20px;
+        border: none;
         border-radius: 6px;
-        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
     }
+
+    #trackBtn:hover {
+        background: #08306b;
+    }
+
+    .status-box {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .stage {
+        padding: 15px;
+        border-left: 5px solid #ccc;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .completed {
+        border-left-color: #28a745 !important;
+        background: #e8fbe8 !important;
+    }
+
+    .active {
+        border-left-color: #ffc107 !important;
+        background: #fff7e6 !important;
+    }
+
+    .circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        float: right;
+        margin-top: 4px;
+    }
+
+    .done { background: #28a745; }
+    .in-progress { background: #ffc107; }
+    .pending { background: #aaa; }
 </style>
 </head>
 
 <body>
 
-<!-- ---------------- HEADER INSERTED HERE ---------------- -->
 <header>
-  <div class="logo">
-    <img src="assets/logo.png" alt="Shree Ram Packers" height="50" />
-  </div>
-
-  <nav>
-    <a href="index.html">Home</a>
-
-    <div class="dropdown">
-      <a href="#">About ▾</a>
-      <div class="dropdown-content">
-        <a href="company-background.html">Company Background</a>
-        <a href="sustainability.html">Sustainability</a>
-        <a href="certifications.html">Quality & Certifications</a>
-      </div>
-    </div>
-
-    <a href="#">Innovation and Technology</a>
-
-    <div class="dropdown">
-      <a href="#">Markets & Products ▾</a>
-      <div class="dropdown-content">
-        <a href="markets-products.html">Markets</a>
-        <a href="product-paper-bags.html">Paper Bags</a>
-        <a href="product-packaging-boxes.html">Packaging Boxes</a>
-      </div>
-    </div>
-
-    <a href="locations.html">Locations</a>
-    <a href="contact.html" class="contact-btn">Contact</a>
-  </nav>
+    <img src="logo.png" alt="Logo">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="markets-products.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="tracking.html" style="color:#d60000;">Track Order</a>
+    </nav>
 </header>
 
-
-<!-- ---------------- TRACKING BODY ---------------- -->
 <div class="container">
-    <h1>📦 Track Your Order</h1>
+    <h2>📦 Track Your Order</h2>
+    <p>Enter your Order ID or scan QR code</p>
 
-    <div id="loading">Loading order details...</div>
+    <input type="text" id="orderInput" placeholder="Enter Order ID (e.g., SRP0123)">
+    <button id="trackBtn" onclick="fetchOrder()">Track Order</button>
 
-    <div id="content" style="display:none;">
-
-        <div class="status" id="statusBox"></div>
-
-        <div class="label">Order ID</div>
-        <div class="value" id="order_id"></div>
-
-        <div class="label">Customer</div>
-        <div class="value" id="customer"></div>
-
-        <div class="label">Item</div>
-        <div class="value" id="item"></div>
-
-        <div class="label">Quantity</div>
-        <div class="value" id="qty"></div>
-
-        <div class="label">Current Stage</div>
-        <div class="value" id="stage"></div>
-
-        <div class="label">Next Stage</div>
-        <div class="value" id="next_stage"></div>
-
-        <div class="label">Last Updated</div>
-        <div class="value" id="updated"></div>
-    </div>
+    <div id="status-box" class="status-box"></div>
 </div>
 
 
-<!-- ---------------- SCRIPT ---------------- -->
 <script>
-    const FIREBASE_URL = "https://YOUR-FIREBASE.firebaseio.com/orders.json";
+    https://osm-78f8b-default-rtdb.firebaseio.com/orders.json
 
-    const params = new URLSearchParams(window.location.search);
-    const orderId = params.get("order_id");
 
-    if (!orderId) {
-        document.getElementById("loading").innerHTML = "❌ Invalid tracking link.";
-    } else {
-        fetch(FIREBASE_URL)
-            .then(res => res.json())
-            .then(data => {
-                const orders = Object.values(data);
-                const order = orders.find(o => o.order_id === orderId);
+    // ------------ Read Order ID from URL (?id=SRP001) -------------
+    const urlParams = new URLSearchParams(window.location.search);
+    const qrOrderId = urlParams.get("id");
 
-                if (!order) {
-                    document.getElementById("loading").innerHTML = "❌ Order not found.";
-                    return;
+    if (qrOrderId) {
+        document.getElementById("orderInput").value = qrOrderId;
+        fetchOrder();
+    }
+
+    // ------------- Fetch Order From Firebase -----------------
+    async function fetchOrder() {
+        let orderId = document.getElementById("orderInput").value.trim();
+
+        if (!orderId) {
+            alert("Please enter valid Order ID");
+            return;
+        }
+
+        document.getElementById("status-box").innerHTML =
+            "<p><b>Fetching latest status...</b></p>";
+
+        try {
+            const res = await fetch(FIREBASE_URL);
+            const data = await res.json();
+
+            let found = null;
+            for (let key in data) {
+                if (data[key].order_id === orderId) {
+                    found = data[key];
+                    break;
                 }
+            }
 
-                document.getElementById("loading").style.display = "none";
-                document.getElementById("content").style.display = "block";
+            if (!found) {
+                document.getElementById("status-box").innerHTML =
+                    "<h3 style='color:red;'>❌ Order not found</h3>";
+                return;
+            }
 
-                document.getElementById("order_id").innerText = order.order_id;
-                document.getElementById("customer").innerText = order.customer;
-                document.getElementById("item").innerText = order.item;
-                document.getElementById("qty").innerText = order.qty;
-                document.getElementById("stage").innerText = order.stage;
-                document.getElementById("next_stage").innerText = order.next_after_printing || "N/A";
-                document.getElementById("updated").innerText = new Date().toLocaleString();
+            renderStatus(found);
 
-                document.getElementById("statusBox").innerHTML =
-                    `Current Status: <b>${order.stage}</b>`;
-            });
+        } catch (err) {
+            document.getElementById("status-box").innerHTML =
+                "<h3 style='color:red;'>⚠ Unable to fetch data</h3>";
+        }
+    }
+
+    // ------------- Render Nice UI Timeline -----------------
+    function renderStatus(o) {
+        const stages = ["Design", "Printing", "DieCut", "Assembly", "Packing", "Completed"];
+
+        let html = `
+            <h3>Order: <b>${o.order_id}</b></h3>
+            <p><b>Customer:</b> ${o.customer}</p>
+            <p><b>Item:</b> ${o.item}</p>
+            <hr>
+            <h3>Status Timeline</h3>
+        `;
+
+        stages.forEach(stage => {
+            let status = "pending";
+            let css = "";
+
+            if (o.stage === stage) {
+                status = "in-progress";
+                css = "active";
+            }
+
+            if (
+                (stage === "Design" && o.design_completed_at) ||
+                (stage === "Printing" && o.printing_completed_at) ||
+                (stage === "DieCut" && o.diecut_completed_at) ||
+                (stage === "Assembly" && o.assembly_completed_at) ||
+                (stage === "Packing" && o.packing_completed_at) ||
+                (stage === "Completed" && o.stage === "Completed")
+            ) {
+                status = "done";
+                css = "completed";
+            }
+
+            html += `
+                <div class="stage ${css}">
+                    <b>${stage}</b>
+                    <div class="circle ${status}"></div>
+                </div>
+            `;
+        });
+
+        document.getElementById("status-box").innerHTML = html;
     }
 </script>
 

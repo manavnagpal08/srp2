@@ -1,175 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Track Your Order – Shree Ram Packers</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Order Tracking – Shree Ram Packaging</title>
 
-<!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-<style>
-    body { font-family: 'Poppins', sans-serif; background:#f8f9fc; margin:0; padding:0; }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-    header {
-        background:white;
-        padding:15px 30px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        box-shadow:0 2px 8px rgba(0,0,0,0.05);
-        position:sticky; top:0; z-index:1000;
-    }
+        input {
+            width: 90%;
+            padding: 12px;
+            font-size: 18px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+        }
 
-    nav { display:flex; gap:20px; align-items:center; }
+        button {
+            margin-top: 15px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+        }
 
-    nav a {
-        text-decoration:none;
-        color:#0d47a1;
-        font-weight:600;
-        font-size:16px;
-        position:relative;
-    }
+        button:hover {
+            background: #0047cc;
+        }
 
-    .container {
-        max-width:700px;
-        margin:40px auto;
-        background:white;
-        padding:30px;
-        border-radius:12px;
-        box-shadow:0 6px 20px rgba(0,0,0,0.08);
-        text-align:center;
-    }
+        .result-box {
+            margin-top: 25px;
+            text-align: left;
+            padding: 20px;
+            background: #f0f4ff;
+            border-left: 5px solid #0047cc;
+            border-radius: 6px;
+        }
 
-    input[type=text] {
-        width:100%;
-        padding:12px;
-        font-size:16px;
-        border:1px solid #ccc;
-        border-radius:8px;
-        margin-bottom:15px;
-    }
-
-    button {
-        background:#0d47a1;
-        color:white;
-        padding:12px 22px;
-        border:none;
-        border-radius:8px;
-        font-size:16px;
-        cursor:pointer;
-        width:100%;
-    }
-
-    .result-box {
-        margin-top:25px;
-        text-align:left;
-        background:#f2f6ff;
-        padding:20px;
-        border-radius:10px;
-        border-left:5px solid #0d47a1;
-    }
-
-    .label { font-weight:600; color:#0d47a1; }
-</style>
+        .not-found {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffe5e5;
+            border-left: 5px solid red;
+            border-radius: 6px;
+            color: #900;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header>
-    <div class="logo">
-        <img src="logo.png" height="50">
-    </div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="tracking.html" style="color:#d60000;">Track Order</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-</header>
-
-<!-- BODY -->
 <div class="container">
-    <h2>📦 Track Your Order</h2>
-    <p>Enter your Order ID or scan the QR code.</p>
+    <h1>📦 Track Your Order</h1>
+    <p>Enter your Order ID or scan your QR code.</p>
 
-    <input type="text" id="orderInput" placeholder="Enter Order ID e.g. SRP005">
+    <input id="orderInput" placeholder="Enter Order ID (e.g., SRP015)" />
 
-    <button onclick="fetchOrder()">🔍 Track Order</button>
+    <button onclick="fetchOrder()">Track Order</button>
 
     <div id="result"></div>
 </div>
 
-<!-- FIREBASE SDK 9 -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-    // YOUR FIREBASE CONFIG
+<!-- FIREBASE SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js" type="module"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js" type="module"></script>
+
+<script type="module">
+    // ------------------------------
+    // 🔥 Firebase Configuration
+    // ------------------------------
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
     const firebaseConfig = {
         apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
         authDomain: "omss-2ccc6.firebaseapp.com",
         databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com",
         projectId: "omss-2ccc6",
-        storageBucket: "omss-2ccc6.firebasestorage.app",
+        storageBucket: "omss-2ccc6.appspot.com",
         messagingSenderId: "24897633074",
-        appId: "1:24897633074:web:ddbf44965e91b17a1db52b",
-        measurementId: "G-D1GBGQQJS2"
+        appId: "1:24897633074:web:ddbf44965e91b17a1db52b"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Expose function globally
+    // ----------------------------------
+    // 🔍 FETCH ORDER FUNCTION
+    // ----------------------------------
     window.fetchOrder = async function () {
         const orderID = document.getElementById("orderInput").value.trim();
         const resultBox = document.getElementById("result");
 
         if (!orderID) {
-            resultBox.innerHTML = "<p style='color:red;'>❌ Please enter a valid Order ID.</p>";
+            resultBox.innerHTML = `<div class='not-found'>❌ Please enter an Order ID.</div>`;
             return;
         }
 
-        resultBox.innerHTML = "<p>⏳ Loading...</p>";
+        resultBox.innerHTML = "⏳ Fetching order details...";
 
-        const dbRef = ref(db);
+        const ordersRef = ref(db, "orders");
+        const snapshot = await get(ordersRef);
 
-        try {
-            const snapshot = await get(child(dbRef, "orders"));
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                
-                // Search for order in Firebase values
-                let found = null;
-                Object.values(data).forEach(o => {
-                    if (o.order_id === orderID) found = o;
-                });
+        if (snapshot.exists()) {
+            const orders = snapshot.val();
+            let foundOrder = null;
 
-                if (!found) {
-                    resultBox.innerHTML = "<p style='color:red;'>❌ Order not found.</p>";
-                    return;
+            for (let key in orders) {
+                if (orders[key].order_id === orderID) {
+                    foundOrder = orders[key];
+                    break;
                 }
+            }
 
-                // SUCCESS → Render Beautiful Card
+            if (foundOrder) {
                 resultBox.innerHTML = `
                     <div class="result-box">
-                        <p><span class="label">Order ID:</span> ${found.order_id}</p>
-                        <p><span class="label">Customer:</span> ${found.customer}</p>
-                        <p><span class="label">Item:</span> ${found.item}</p>
-                        <p><span class="label">Quantity:</span> ${found.qty}</p>
-                        <p><span class="label">Priority:</span> ${found.priority}</p>
-                        <p><span class="label">Stage:</span> ${found.stage}</p>
-                        <p><span class="label">Received:</span> ${found.received}</p>
-                        <p><span class="label">Due Date:</span> ${found.due}</p>
+                        <h2>Order: ${foundOrder.order_id}</h2>
+                        <p><strong>Customer:</strong> ${foundOrder.customer}</p>
+                        <p><strong>Item:</strong> ${foundOrder.item}</p>
+                        <p><strong>Quantity:</strong> ${foundOrder.qty}</p>
+                        <p><strong>Priority:</strong> ${foundOrder.priority}</p>
+                        <p><strong>Product Type:</strong> ${foundOrder.product_type}</p>
+                        <p><strong>Stage:</strong> <b>${foundOrder.stage}</b></p>
+                        <p><strong>Received:</strong> ${foundOrder.received}</p>
+                        <p><strong>Due Date:</strong> ${foundOrder.due}</p>
+                        <br>
+                        <p>📍 <strong>Current Status:</strong> ${foundOrder.stage}</p>
                     </div>
                 `;
+            } else {
+                resultBox.innerHTML = `<div class='not-found'>❌ Order not found.</div>`;
             }
-        } 
-        catch (err) {
-            resultBox.innerHTML = "<p style='color:red;'>⚠ Firebase error:</p>" + err;
+        } else {
+            resultBox.innerHTML = `<div class='not-found'>❌ No data found.</div>`;
         }
-    }
+    };
+
+    // -----------------------------------------
+    // ⭐ AUTO-FILL ORDER ID WHEN QR CODE OPENS
+    // -----------------------------------------
+    window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const orderID = params.get("id");  // Your QR uses ?id=SRP015
+
+        if (orderID) {
+            document.getElementById("orderInput").value = orderID;
+            fetchOrder();
+        }
+    };
 </script>
 
 </body>

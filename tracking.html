@@ -2,59 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Order Tracking – Shree Ram Packers</title>
-
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f7fa;
-    padding: 20px;
-}
+/* Custom Styles for aesthetics and centering */
 .container {
     max-width: 600px;
-    margin: auto;
-    padding: 25px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-}
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-}
-button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 14px;
-    background: #0d47a1;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-}
-#result {
-    margin-top: 20px;
-    padding: 18px;
-    background: #e3f2fd;
-    border-radius: 8px;
 }
 </style>
 
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-sans">
 
-<div class="container">
-    <h2>📦 Track Your Order</h2>
-    <p>Enter order ID or scan QR code.</p>
+<div class="container bg-white p-8 rounded-xl shadow-2xl w-full">
+    <h2 class="text-3xl font-bold text-gray-800 mb-2 flex items-center">
+        <span class="mr-3">📦</span> Track Your Order
+    </h2>
+    <p class="text-gray-500 mb-6">Enter your order ID or scan the QR code to see the current status.</p>
 
-    <input id="orderInput" placeholder="Enter Order ID (e.g., SRP015)">
-    <button id="trackButton">Track</button>
+    <input id="orderInput" 
+           placeholder="Enter Order ID (e.g., SRP015)" 
+           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4 text-lg">
+    
+    <!-- FIX: Use ID for event listener attachment -->
+    <button id="trackButton" 
+            class="w-full p-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-lg transition duration-150 ease-in-out shadow-md hover:shadow-lg">
+        Track Order
+    </button>
 
-    <div id="result"></div>
+    <div id="result" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-gray-700 transition duration-300">
+        Waiting for Order ID...
+    </div>
 </div>
 
 <script type="module">
@@ -62,6 +41,7 @@ button {
 // ------------------------------------
 // FIREBASE IMPORTS
 // ------------------------------------
+// Using Firebase SDK v9+ modular imports
 import { initializeApp } 
 from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 
@@ -70,19 +50,18 @@ from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
 
 // ------------------------------------
-// FIREBASE CONFIG 🔥 CRITICAL: ENSURE databaseURL IS CORRECT
+// FIREBASE CONFIG 🔥 FIX APPLIED: databaseURL no longer has a trailing slash.
 // ------------------------------------
 const firebaseConfig = {
     apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
     authDomain: "omss-2ccc6.firebaseapp.com",
-
-    // This URL must exactly match your Firebase Realtime Database URL.
-    databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com/",
-
+    // CRITICAL: Ensure this URL is exactly correct for your Realtime Database
+    databaseURL: "https://omss-2ccc6-default-rtdb.firebaseio.com", 
     projectId: "omss-2ccc6",
     storageBucket: "omss-2ccc6.firebasestorage.app",
     messagingSenderId: "24897633074",
-    appId: "1:24897633074:web:ddbf44965e91b17a1db52b"
+    appId: "1:24897633074:web:ddbf44965e91b17a1db52b",
+    measurementId: "G-D1GBGQQJS2" // Added from user input
 };
 
 
@@ -90,8 +69,7 @@ const firebaseConfig = {
 // INITIALIZE FIREBASE
 // ------------------------------------
 const app = initializeApp(firebaseConfig);
-
-// Long polling fix for iPhone + weak networks
+// Get Realtime Database instance
 const db = getDatabase(app, {
     experimentalForceLongPolling: true,
     experimentalAutoDetectLongPolling: true
@@ -106,19 +84,18 @@ async function trackOrder() {
     const out = document.getElementById("result");
 
     if (!oid) {
-        out.innerHTML = "<p style='color:red;'>Enter order ID.</p>";
+        out.innerHTML = "<p class='text-red-600'>Please enter an order ID.</p>";
         return;
     }
 
-    out.innerHTML = "⏳ Loading...";
+    out.innerHTML = "<div class='text-center text-blue-600'>⏳ Loading order details...</div>";
 
     try {
-        // NOTE: This fetches ALL orders and then filters. For better performance
-        // in production, you should try to query the database more directly.
+        // Fetch ALL orders (for simplicity, but consider a direct query for scale)
         const snap = await get(ref(db, "orders"));
 
         if (!snap.exists()) {
-            out.innerHTML = "<p style='color:red;'>No orders found.</p>";
+            out.innerHTML = "<p class='text-red-600'>Database is empty or connection failed.</p>";
             return;
         }
 
@@ -130,23 +107,27 @@ async function trackOrder() {
         });
 
         if (!found) {
-            out.innerHTML = "<p style='color:red;'>Order not found.</p>";
+            out.innerHTML = `<p class='text-red-600'>Order ID <strong>${oid}</strong> not found.</p>`;
             return;
         }
 
+        // Display results
         out.innerHTML = `
-            <h3>Order Details</h3>
-            <p><b>Order ID:</b> ${found.order_id}</p>
-            <p><b>Customer:</b> ${found.customer}</p>
-            <p><b>Product:</b> ${found.item}</p>
-            <p><b>Quantity:</b> ${found.qty}</p>
-            <p><b>Status:</b> ${found.stage}</p>
-            <p><b>Priority:</b> ${found.priority}</p>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">Order Details</h3>
+            <p><span class="font-semibold">Order ID:</span> <span class="text-blue-600">${found.order_id}</span></p>
+            <p><span class="font-semibold">Customer:</span> ${found.customer}</p>
+            <p><span class="font-semibold">Product:</span> ${found.item}</p>
+            <p><span class="font-semibold">Quantity:</span> ${found.qty}</p>
+            <p class="mt-2 text-lg font-bold">
+                <span class="text-blue-600">Current Status:</span> 
+                <span class="text-green-700">${found.stage}</span>
+            </p>
+            <p><span class="font-semibold">Priority:</span> ${found.priority}</p>
         `;
 
     } catch (e) {
-        out.innerHTML = "<p style='color:red;'>Error fetching order. Check console for details.</p>";
-        console.error(e);
+        out.innerHTML = "<p class='text-red-600'>An unexpected error occurred while fetching the order.</p>";
+        console.error("Firebase Fetch Error:", e);
     }
 }
 
@@ -159,14 +140,13 @@ const autoID = params.get("id");
 
 if (autoID) {
     document.getElementById("orderInput").value = autoID;
+    // Set a short delay to ensure the DOM is fully stable before running trackOrder
     setTimeout(() => trackOrder(), 200);
 }
 
 // ------------------------------------
-// ATTACH EVENT LISTENER 🔥 FIX for 'trackOrder is not defined'
+// ATTACH EVENT LISTENER (Handles 'trackOrder is not defined' ReferenceError)
 // ------------------------------------
-// We attach the function to the button's click event directly,
-// which is the proper way to handle events in a JavaScript module.
 document.getElementById("trackButton").addEventListener("click", trackOrder);
 
 </script>

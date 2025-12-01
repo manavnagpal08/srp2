@@ -2,11 +2,17 @@
 <html>
 <head>
     <title>Enable Admin Notifications</title>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/bag.jpg">
 </head>
+
 <body style="font-family:Arial;padding:30px;">
 
 <h2>🔔 Enable Admin Notifications</h2>
-<p>This device will receive updates when any order is completed or updated.</p>
+<p>This device (Admin) will receive alerts when any order is created or completed.</p>
 
 <button id="enableBtn"
     style="padding:12px 20px;font-size:16px;background:#1976d2;color:white;border:none;border-radius:6px;cursor:pointer;">
@@ -16,11 +22,16 @@
 <p id="status" style="margin-top:20px;color:green;"></p>
 
 <script type="module">
+
+// 🟢 Register Service Worker FIRST
+navigator.serviceWorker.register("/firebase-messaging-sw.js")
+.then(() => console.log("Service Worker Registered"))
+.catch(err => console.error("SW registration failed", err));
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Your Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyC6dSHzQ5kvfDSDcLNvRl-svNf5E2Mrmuk",
     authDomain: "omss-2ccc6.firebaseapp.com",
@@ -44,10 +55,10 @@ document.getElementById("enableBtn").onclick = async () => {
         }
 
         const token = await getToken(messaging, {
-            vapidKey: "BNTK8a4dB3TlX0-1mI1tL_6kW-zGvYcOQ8sBq9S5MOmQF2kPELkWfdlZpJmWOxUv1GUuXuONp1MBvOicj9h5QKs"
+            vapidKey: "BNTK8a4dB3TlX0-1mI1tL_6kW-zGvYcOQ8sBq9S5MOmQF2kPELkWfdlZpJmWOxUv1GUuXuONp1MBvOicj9h5QKs",
+            serviceWorkerRegistration: await navigator.serviceWorker.getRegistration()
         });
 
-        // Save token to Firebase
         await set(ref(database, "admin_fcm_token"), token);
 
         document.getElementById("status").innerHTML = "✅ Notifications Enabled Successfully!";
